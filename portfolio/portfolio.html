@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zakir Alibhai - Bioinformatics Student & Developer Portfolio">
+    <title>Zakir Alibhai | Bioinformatics Portfolio</title>
+    <script>
+        // Immediately execute dark mode check
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <!-- Alpine.js CDN -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+     <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'fadeIn': 'fadeIn 0.4s ease-in'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+   
+
+<!-- Prevent Flash of Wrong Theme (FOWT) -->
+<!--
+<script>
+    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+    if (localStorage.getItem('darkMode') === 'true' ||
+        (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    }
+</script> -->
+
+<!--
+<script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {}
+        }
+    }
+</script> -->
+
+</head>
+<body class="bg-gray-50 dark:bg-gray-900" x-data="pageTransitions">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white dark:bg-gray-800 shadow-md z-50" x-data="navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <!-- Logo/Name -->
+            <div class="flex-shrink-0 flex items-center">
+                <a href="#" class="text-xl font-bold text-gray-800 dark:text-white">
+                    Zakir Alibhai
+                </a>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">Home</a>
+                <a href="#about" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">About</a>
+                <a href="#projects" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">Projects</a>
+                <a href="#skills" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">Skills</a>
+                <a href="#education" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">Education</a>
+                <a href="#contact" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">Contact</a>
+                
+                <!-- Dark Mode Toggle -->
+                <!-- Dark Mode Toggle -->
+                <button @click="isDark = !isDark; 
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', isDark.toString());
+                $dispatch('dark-mode-changed', { dark: isDark })"
+                class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                    <!-- Sun icon -->
+                    <svg x-show="!isDark" class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    <!-- Moon icon -->
+                    <svg x-show="isDark" class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button @click="toggleMenu" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    <svg class="h-6 w-6" x-show="!isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg class="h-6 w-6" x-show="isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div x-show="isOpen" class="md:hidden bg-white dark:bg-gray-800 shadow-lg">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="#home" @click="isOpen = false" class="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Home</a>
+            <a href="#about" @click="isOpen = false" class="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">About</a>
+            <a href="#projects" @click="isOpen = false" class="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Projects</a>
+            <a href="#skills" @click="isOpen = false" class="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Skills</a>
+            <a href="#education" @click="isOpen = false" class="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Education</a>
+            <a href="#contact" @click="isOpen = false" class="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Contact</a>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Column: Text Content -->
+            <div class="space-y-8">
+                <div class="space-y-4">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white">
+                        Zakir Alibhai
+                    </h1>
+                    
+                    <!-- Dynamic typing effect -->
+                    <div x-data="{ 
+                        texts: ['Bioinformatics Student', 'Developer', 'Research Enthusiast', 'Computational Biologist'],
+                        currentIndex: 0,
+                        currentText: '',
+                        isDeleting: false,
+                        typeSpeed: 100,
+                        deleteSpeed: 50,
+                        pauseSpeed: 2000
+                    }"
+                    x-init="(() => {
+                        function type() {
+                            const current = texts[currentIndex];
+                            if (!isDeleting) {
+                                currentText = current.substring(0, currentText.length + 1);
+                                if (currentText === current) {
+                                    isDeleting = true;
+                                    setTimeout(type, pauseSpeed);
+                                    return;
+                                }
+                            } else {
+                                currentText = current.substring(0, currentText.length - 1);
+                                if (currentText === '') {
+                                    isDeleting = false;
+                                    currentIndex = (currentIndex + 1) % texts.length;
+                                }
+                            }
+                            setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
+                        }
+                        type();
+                    })()">
+                        <h2 class="text-2xl sm:text-3xl lg:text-4xl text-blue-600 dark:text-blue-400 font-medium">
+                            <span x-text="currentText"></span><span class="animate-pulse">|</span>
+                        </h2>
+                    </div>
+
+                    <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                        Merging computational innovation and life sciences at <a href="https://ucsd.edu" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">UCSD</a>. Passionate about using machine learning and data analysis to solve complex biological challenges. Bioinformatics student, developer, computational biologist, and aspiring researcher.
+                    </p>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projects" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition duration-300 transform hover:scale-105">
+                        View Projects
+                    </a>
+                    <a href="#contact" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition duration-300 transform hover:scale-105">
+                        Contact Me
+                    </a>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 max-w-3xl -ml-6">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">6+</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300">Projects</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">8+</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300">Skills</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">10+</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300">Courses</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">100+</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300">Hours of Coding</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden lg:block">
+                <div class="relative">
+                    <div class="w-full h-96 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900 dark:to-blue-800 rounded-lg shadow-xl transform rotate-3 transition-transform duration-300 hover:rotate-0">
+                        <!-- Image container with object-fit -->
+                        <div class="w-full h-full flex items-center justify-center overflow-hidden">
+                            <img
+                                src="images/profile.jpg" 
+                                alt="Owner Image" 
+                                class="w-full h-full object-contain"
+                            />
+                            <!-- Alternative: use object-contain if you want to ensure the whole image is visible -->
+                                <!-- class="w-full h-full object-contain" -->
+                                 <!--Use cover for main-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white dark:bg-gray-800 transition-all duration-500 ease-in-out opacity-0">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                About Me
+            </h2>
+            <div class="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Left Column: Interactive Cards -->
+            <div class="lg:col-span-5 space-y-6">
+                <!-- Experience Card -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105"
+                     x-data="{ isOpen: false }">
+                    <div class="flex items-center justify-between cursor-pointer" @click="isOpen = !isOpen">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Academic Background</h3>
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300"
+                             :class="{ 'rotate-180': isOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div x-show="isOpen" x-transition class="mt-4 text-gray-600 dark:text-gray-300">
+                        First-year Bioinformatics student at UCSD, combining computer science with biological research. 
+                        Focused on developing algorithms, tools, and analyzing data to solve various complex genetic, viral, and bio-chemical problems.
+                    </div>
+                </div>
+
+                <!-- Research Interests Card -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105"
+                     x-data="{ isOpen: false }">
+                    <div class="flex items-center justify-between cursor-pointer" @click="isOpen = !isOpen">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Research Interests</h3>
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300"
+                             :class="{ 'rotate-180': isOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div x-show="isOpen" x-transition class="mt-4 text-gray-600 dark:text-gray-300">
+                        Passionate about biotechnology, medical research, and the intersection of computing with genetics. 
+                        Exploring applications of machine learning in genomic analysis. Interested in developing tools for epigenetic analysis and personalized medicine for the average consumer.
+                    </div>
+                </div>
+
+                <!-- Goals Card -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105"
+                     x-data="{ isOpen: false }">
+                    <div class="flex items-center justify-between cursor-pointer" @click="isOpen = !isOpen">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Future Goals</h3>
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300"
+                             :class="{ 'rotate-180': isOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div x-show="isOpen" x-transition class="mt-4 text-gray-600 dark:text-gray-300">
+                        Aspiring to contribute to breakthrough research in computational biology and develop innovative 
+                        solutions for healthcare challenges through technology. Planning to leverage existing genomic tools and solutions to augment our knowledge and understanding of the human genome.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Main Content -->
+            <div class="lg:col-span-7 space-y-6">
+                <!-- Main Bio -->
+                <div class="prose dark:prose-invert max-w-none">
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                        As a Biology major specializing in Bioinformatics at UCSD, I'm exploring the cutting-edge intersection of using computational methods to perform genomic research. More relevant than ever today, my program combines the depth of understanding in epigenetics, molecular and chemical biology, and phylogenetics with the power of modern computing, preparing me to tackle next-generation challenges in personalized medicine, viral data analysis, and other genomic research.
+                    </p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                        Beyond coursework, I'm actively developing extracurricular expertise in both cellular and molecular biology techniques within the wet lab; and expanding my repertoire of programming languages and relevant technologies, with a particular focus on:
+                    </p>
+                </div>
+
+                <!-- Skills Grid -->
+                <div class="grid grid-cols-3 gap-4">
+                    <!-- Row 1: Programming Languages -->
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Python</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Java</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>JavaScript</span>
+                    </div>
+
+                    <!-- Row 2: Tools & Technologies -->
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Jupyter Notebooks</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>R Programming</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Web Development</span>
+                    </div>
+
+                    <!-- Row 3: Biology Specialties -->
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Genomics</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Epigenetics</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Phylogenetics</span>
+                    </div>
+
+                    <!-- Row 4: Research & Applications -->
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Viral Research</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>API Integration</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Protein Modeling</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-gray-50 dark:bg-gray-900 transition-all duration-500 ease-in-out opacity-0" x-data="{ activeFilter: 'all' }">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        Projects & Research
+                    </h2>
+                    <div class="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto rounded-full mb-8"></div>
+                    
+                    <!-- Project Filters -->
+                    <div class="flex flex-wrap justify-center gap-4 mb-8">
+                        <button @click="activeFilter = 'all'" 
+                                :class="{ 'bg-blue-600 text-white': activeFilter === 'all', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeFilter !== 'all' }"
+                                class="px-4 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                            All Projects
+                        </button>
+                        <button @click="activeFilter = 'github'" 
+                                :class="{ 'bg-blue-600 text-white': activeFilter === 'github', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeFilter !== 'github' }"
+                                class="px-4 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                            GitHub Projects
+                        </button>
+                        <button @click="activeFilter = 'other'" 
+                                :class="{ 'bg-blue-600 text-white': activeFilter === 'other', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeFilter !== 'other' }"
+                                class="px-4 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                            Other Projects
+                        </button>
+                        <button @click="activeFilter = 'future'" 
+                                :class="{ 'bg-blue-600 text-white': activeFilter === 'future', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeFilter !== 'future' }"
+                                class="px-4 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                            Future Projects
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="space-y-12">
+                    <!-- GitHub Projects -->
+                    <div x-show="activeFilter === 'all' || activeFilter === 'github'" 
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 transform scale-100"
+                        x-transition:leave-end="opacity-0 transform scale-95"
+                        class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                        <!-- GitHub Project: GPTPortal (Updated) -->
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                            <div class="p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">GPTPortal - Advanced LLM Interface</h3>
+                                    <a href="https://github.com/Zaki-1052/GPTPortal" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 transition">
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                    Comprehensive Node.js platform integrating 10+ leading AI providers including OpenAI, Anthropic, Google, Meta AI, and Mistral. Features multi-modal interactions (text, voice, images), custom instructions, prompt templates, automated cost tracking, and multiple specialized modes including RAG and Jupyter environments.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Node.js</span>
+                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">AI/ML</span>
+                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Full Stack</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- GitHub Project: GPTPortal BioMed -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">EpiGenAI - Epigenetic Analysis Portal</h3>
+                    <a href="https://github.com/Zaki-1052/GPTPortal/tree/biomed" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Specialized Node.js portal for epigenetic data analysis using vector embeddings and LLMs. Features DNA methylation analysis, pattern recognition, and natural language interpretation of genetic data.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Bioinformatics</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">ML</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Node.js</span>
+                </div>
+            </div>
+        </div>
+
+                        <!-- GitHub Project: BILD4 Final -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">BILD4 Final Research Project</h3>
+                    <a href="https://github.com/Zaki-1052/BILD4_Final" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Comprehensive Obsidian vault exploring epigenetic effects of alcohol consumption in Asian populations. Research focuses on DNA hypomethylation patterns and the ALDH2*rs671 variant's role in acetaldehyde metabolism. Includes displayed final poster.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Markdown</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Obsidian</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Research</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GitHub Project: Portfolio Website -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Personal Portfolio Website</h3>
+                    <a href="https://github.com/Zaki-1052/zaki-1052.github.io" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Modern portfolio website built with HTML5, Tailwind CSS, and Alpine.js. Features responsive design, dark mode, and interactive elements to showcase projects and skills.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">HTML</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Tailwind CSS</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Alpine.js</span>
+                </div>
+            </div>
+        </div>
+                
+                <!-- GitHub Project 1: Genomics Tool -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Genomic Data Analysis Tool</h3>
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 transition">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Python-based genomic analysis tool for processing and visualizing DNA sequence data. 
+                            Features include sequence alignment, pattern recognition, and interactive visualizations.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Python</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">BioPython</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Data Analysis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GitHub Project 2: Research Visualization -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Research Data Visualization</h3>
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 transition">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            R-based visualization toolkit for biological research data. Creates interactive plots
+                            and statistical analyses for genomic and proteomic datasets.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">R</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">ggplot2</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">Bioconductor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GitHub Project: Naz Website -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Personal Brand Website</h3>
+                    <a href="https://github.com/Zaki-1052/Naz_Website" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Custom-designed personal brand website showcasing professional achievements and services. Features responsive design, modern aesthetics, and optimized user experience across devices.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">HTML</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">CSS</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">JavaScript</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GitHub Project: Mendel Website -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Personal Brand Website</h3>
+                    <a href="https://github.com/Zaki-1052/Mendel_Website" target="_blank" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Custom-designed personal brand website showcasing professional achievements and services. Features responsive design, modern aesthetics, and optimized user experience across devices.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">HTML</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">CSS</span>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm">JavaScript</span>
+                </div>
+            </div>
+        </div>
+
+            </div>
+
+            <!-- Other Projects -->
+            <div x-show="activeFilter === 'all' || activeFilter === 'other'"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 transform scale-100"
+                 x-transition:leave-end="opacity-0 transform scale-95"
+                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Other Project 1: Research -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">PLACEHOLDER: UCSD Research Project</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Undergraduate research project focusing on genetic markers in cancer cells. 
+                            Combining wet lab techniques with computational analysis to study gene expression patterns.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full text-sm">Research</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full text-sm">Genetics</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full text-sm">Lab Work</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Project 2: Course Project -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">PLACEHOLDER: Bioinformatics Course Project</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Advanced computational analysis of protein structures using machine learning techniques.
+                            Developed predictive models for protein-protein interactions.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full text-sm">Machine Learning</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full text-sm">Proteins</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full text-sm">Analysis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Project 3: Independent Study -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">PLACEHOLDER: Independent Research Study</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Self-directed study on emerging technologies in biotechnology and their applications
+                            in medical research and treatment development.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full text-sm">Biotech</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full text-sm">Research</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-full text-sm">Medicine</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future Projects/Interests -->
+            <div x-show="activeFilter === 'all' || activeFilter === 'future'"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 transform scale-100"
+                 x-transition:leave-end="opacity-0 transform scale-95"
+                 class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Future Projects & Interests: Placeholders</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Future Project 1 -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                            </svg>
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white">AI in Genomics Research</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Developing machine learning models for genomic data analysis and prediction of genetic variations. Extending AlphaFold with other cutting-edge models for protein structure prediction in a user-friendly manner.
+                        </p>
+                    </div>
+
+                    <!-- Future Project 2 -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                            </svg>
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white">Drug Discovery Platform</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Creating a computational platform for predicting drug-protein interactions and potential therapeutic targets. Utilizing deep learning models in the cloud and on local hardware for new drug discovery and repurposing.
+                        </p>
+                    </div>
+
+                    <!-- Future Project 3 -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                            </svg>
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white">Automated Lab Analysis</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Developing automation tools for processing and analyzing laboratory data using computer vision and machine learning. Implementing algorithms to identify and quantify biological samples, automate data entry, and enhance the accuracy and efficiency of laboratory workflows.
+                        </p>
+                    </div>
+
+                    <!-- Future Project 4 -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white">Real-time Genomic Analysis</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Developing a real-time system for processing and analyzing genomic sequencing data as it's generated. Create a pipeline that can handle high-throughput sequencing data, perform quality control, align sequences, and identify variants in real-time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Skills Section -->
+<section id="skills" class="py-20 bg-white dark:bg-gray-800 transition-all duration-500 ease-in-out opacity-0" x-data="{ activeCategory: 'all' }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Skills & Technologies
+            </h2>
+            <div class="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto rounded-full mb-8"></div>
+            
+            <!-- Skill Categories -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button @click="activeCategory = 'all'" 
+                        :class="{ 'bg-blue-600 text-white': activeCategory === 'all', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'all' }"
+                        class="px-3 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                    All Skills
+                </button>
+                <button @click="activeCategory = 'programming'" 
+                        :class="{ 'bg-blue-600 text-white': activeCategory === 'programming', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'programming' }"
+                        class="px-3 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                    Programming
+                </button>
+                <button @click="activeCategory = 'biotech'" 
+                        :class="{ 'bg-blue-600 text-white': activeCategory === 'biotech', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'biotech' }"
+                        class="px-3 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                    Biotechnology
+                </button>
+                <button @click="activeCategory = 'medical'" 
+                        :class="{ 'bg-blue-600 text-white': activeCategory === 'medical', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'medical' }"
+                        class="px-3 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                    Medical Experience
+                </button>
+                <button @click="activeCategory = 'devops'" 
+                        :class="{ 'bg-blue-600 text-white': activeCategory === 'devops', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'devops' }"
+                        class="px-3 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                    DevOps & Infrastructure
+                </button>
+                <button @click="activeCategory = 'tools'" 
+                        :class="{ 'bg-blue-600 text-white': activeCategory === 'tools', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'tools' }"
+                        class="px-3 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                    Tools & Frameworks
+                </button>
+                <button @click="activeCategory = 'competencies'" 
+                        :class="{ 'bg-blue-600 text-white': activeCategory === 'competencies', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'competencies' }"
+                        class="px-3 py-2 rounded-full transition duration-300 hover:shadow-lg">
+                    Additional Competencies
+                </button>
+            </div>
+        </div>
+
+        <!-- Skills Grid -->
+        <div class="grid gap-12">
+            <!-- Programming Languages -->
+            <div x-show="activeCategory === 'all' || activeCategory === 'programming'"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100"
+                 class="space-y-8">
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Programming Languages</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Python -->
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM21.1 6.11l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01.21.03zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08-.33.23z"/>
+                                </svg>
+                                <span class="text-lg font-semibold text-gray-900 dark:text-white">Python</span>
+                            </div>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Advanced</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                            <div class="bg-blue-600 dark:bg-blue-400 h-2.5 rounded-full" style="width: 90%"></div>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">BioPython</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Pandas</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">NumPy</span>
+                        </div>
+                    </div>
+
+                    <!-- JavaScript -->
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/>
+                                </svg>
+                                <span class="text-lg font-semibold text-gray-900 dark:text-white">JavaScript</span>
+                            </div>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Advanced</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                            <div class="bg-blue-600 dark:bg-blue-400 h-2.5 rounded-full" style="width: 95%"></div>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">ES6+</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Node.js</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Alpine.js</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">API Integration</span>
+                        </div>
+                    </div>
+
+                    <!-- R -->
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 100 16 8 8 0 000-16zm.5 3c2.063 0 3.875 1.125 4.875 2.875.438.75.688 1.625.688 2.625 0 1.313-.5 2.5-1.313 3.375C15.876 16.75 14.251 17 12.501 17c-1.25 0-2.375-.25-3.375-.75-.875-.438-1.625-1.125-2.125-2-.438-.75-.688-1.625-.688-2.625 0-1.313.5-2.5 1.313-3.375C8.626 7.25 10.251 7 12.001 7c.188 0 .312.063.375.188.063.063.063.187 0 .312l-1.25 2.375c-.063.125-.188.188-.313.188-.125-.063-.25-.063-.375 0-.5.25-.875.625-1.125 1.125-.188.375-.25.75-.25 1.187 0 .688.25 1.313.75 1.813.563.5 1.188.75 1.938.75.75 0 1.375-.25 1.875-.75.5-.5.75-1.125.75-1.813 0-.437-.062-.812-.187-1.187-.188-.5-.563-.875-1.063-1.125-.125-.063-.25-.063-.375 0-.125 0-.25-.063-.313-.188L11.126 7.5c-.063-.125-.063-.25 0-.313C11.189 7.063 11.314 7 11.501 7h1z"/>
+                                </svg>
+                                <span class="text-lg font-semibold text-gray-900 dark:text-white">R Programming</span>
+                            </div>
+                            <span class="text-sm text-blue-600 dark:text-blue-400">Intermediate</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                            <div class="bg-blue-600 dark:bg-blue-400 h-2.5 rounded-full" style="width: 75%"></div>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">ggplot2</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Bioconductor</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">tidyverse</span>
+                        </div>
+                    </div>
+
+                   <!-- Java -->
+                   <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573"/>
+                            </svg>
+                            <span class="text-lg font-semibold text-gray-900 dark:text-white">Java</span>
+                        </div>
+                        <span class="text-sm text-blue-600 dark:text-blue-400">Learning</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                        <div class="bg-blue-600 dark:bg-blue-400 h-2.5 rounded-full" style="width: 40%"></div>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Core Java</span>
+                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">OOP</span>
+                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Data Structures</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Biotechnology Skills -->
+        <div x-show="activeCategory === 'all' || activeCategory === 'biotech'"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform scale-95"
+             x-transition:enter-end="opacity-100 transform scale-100"
+             class="space-y-8">
+            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Biotechnology Skills</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Genomic Analysis -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                            <span class="text-lg font-semibold text-gray-900 dark:text-white">Genomic Analysis</span>
+                        </div>
+                        <span class="text-sm text-green-600 dark:text-green-400">Intermediate</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                        <div class="bg-green-600 dark:bg-green-400 h-2.5 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-md text-sm">DNA Sequencing</span>
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-md text-sm">BLAST</span>
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-md text-sm">Sequence Analysis</span>
+                    </div>
+                </div>
+
+                <!-- Lab Techniques -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                            </svg>
+                            <span class="text-lg font-semibold text-gray-900 dark:text-white">Lab Techniques</span>
+                        </div>
+                        <span class="text-sm text-green-600 dark:text-green-400">Learning</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                        <div class="bg-green-600 dark:bg-green-400 h-2.5 rounded-full" style="width: 45%"></div>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-md text-sm">PCR</span>
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-md text-sm">Gel Electrophoresis</span>
+                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-md text-sm">Cell Culture</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical Experience -->
+<div x-show="activeCategory === 'all' || activeCategory === 'medical'"
+x-transition:enter="transition ease-out duration-300"
+x-transition:enter-start="opacity-0 transform scale-95"
+x-transition:enter-end="opacity-100 transform scale-100"
+class="space-y-8">
+<h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Clinical Experience</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+   <!-- Cedars-Sinai Experience -->
+   <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+       <div class="flex justify-between items-center mb-4">
+           <div class="flex items-center space-x-3">
+               <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+               </svg>
+               <span class="text-lg font-semibold text-gray-900 dark:text-white">Neurology Department Volunteer</span>
+           </div>
+           <span class="text-sm text-green-600 dark:text-green-400">1 Year</span>
+       </div>
+       <div class="mt-4 flex flex-wrap gap-2">
+           <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-md text-sm">Patient Care</span>
+           <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-md text-sm">Medical Procedures</span>
+           <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 rounded-md text-sm">Clinical Operations</span>
+       </div>
+       <p class="mt-4 text-gray-600 dark:text-gray-300 text-sm">
+           Volunteered at Cedars-Sinai Medical Center's Neurology Ward, gaining hands-on experience in patient care and medical procedures while developing a deep understanding of clinical operations and healthcare delivery.
+       </p>
+   </div>
+
+   <!-- Clinical Skills -->
+   <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+       <div class="flex justify-between items-center mb-4">
+           <div class="flex items-center space-x-3">
+               <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+               </svg>
+               <span class="text-lg font-semibold text-gray-900 dark:text-white">Healthcare Competencies</span>
+           </div>
+       </div>
+       <ul class="mt-4 space-y-2 text-gray-600 dark:text-gray-300">
+           <li class="flex items-center space-x-2">
+               <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+               </svg>
+               <span>Patient Interaction & Care</span>
+           </li>
+           <li class="flex items-center space-x-2">
+               <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+               </svg>
+               <span>Medical Documentation</span>
+           </li>
+           <li class="flex items-center space-x-2">
+               <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+               </svg>
+               <span>Healthcare Protocols</span>
+           </li>
+           <li class="flex items-center space-x-2">
+               <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+               </svg>
+               <span>Clinical Environment Experience</span>
+           </li>
+       </ul>
+   </div>
+</div>
+</div>
+
+<!-- DevOps & Infrastructure -->
+<div x-show="activeCategory === 'all' || activeCategory === 'devops'"
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="opacity-0 transform scale-95"
+     x-transition:enter-end="opacity-100 transform scale-100"
+     class="space-y-8">
+    <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">DevOps & Infrastructure</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Cloud & Server Management -->
+        <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-white">Cloud Infrastructure</span>
+                </div>
+                <span class="text-sm text-blue-600 dark:text-blue-400">Active</span>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Oracle Cloud</span>
+                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Linux Server</span>
+                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">SSH Management</span>
+                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Cloudflare</span>
+            </div>
+            <ul class="mt-4 space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Oracle Cloud Infrastructure Management</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Linux Server Administration via CLI</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Virtual Machine Routing - Python & Javascript</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Cloudflare Tunneling & DNS Management</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Projects & Services -->
+        <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    </svg>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-white">Hosted Services</span>
+                </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Discord Bot</span>
+                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Plex Server</span>
+                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Web Projects</span>
+                <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-md text-sm">Shell Scripting</span>
+            </div>
+            <ul class="mt-4 space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Custom Discord Bot Development & Hosting</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Media Server Configuration & Management</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Automated Deployment Workflows</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Custom Shell Scripts & Automation</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <!-- Tools & Frameworks -->
+        <div x-show="activeCategory === 'all' || activeCategory === 'tools'"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform scale-95"
+             x-transition:enter-end="opacity-100 transform scale-100"
+             class="space-y-8">
+            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Tools & Frameworks</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Development Tools -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Development</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">Git & GitHub</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">VS Code</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">Command Line</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Web Technologies -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Web Technologies</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">HTML & CSS</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">JavaScript</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">Tailwind CSS</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Data Analysis -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 transform transition-all duration-300 hover:scale-105">
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Data Analysis</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">Jupyter Notebooks</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">RStudio</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300">Data Visualization</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Skills Summary -->
+        <!-- Additional Competencies Section -->
+        <div x-show="activeCategory === 'all' || activeCategory === 'competencies'"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-95"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        class="space-y-8">
+        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Additional Competencies</h3>
+        <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Research -->
+                <div class="space-y-2">
+                    <h4 class="font-medium text-gray-900 dark:text-white">Research Skills</h4>
+                    <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                        <li>Scientific Literature Review</li>
+                        <li>Data Collection & Analysis</li>
+                        <li>Experimental Design</li>
+                        <li>Technical Documentation</li>
+                    </ul>
+                </div>
+
+                <!-- Operating Systems -->
+                <div class="space-y-2">
+                    <h4 class="font-medium text-gray-900 dark:text-white">Operating Systems</h4>
+                    <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                        <li>MacOS (Primary)</li>
+                        <li>Ubuntu/Linux</li>
+                        <li>Windows (VMs)</li>
+                        <li>Command Line Proficiency</li>
+                    </ul>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="space-y-2">
+                    <h4 class="font-medium text-gray-900 dark:text-white">Soft Skills</h4>
+                    <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                        <li>Problem Solving</li>
+                        <li>Team Collaboration</li>
+                        <li>Technical Writing</li>
+                        <li>Project Management</li>
+                    </ul>
+                </div>
+
+                <!-- Currently Learning -->
+                <div class="space-y-2">
+                    <h4 class="font-medium text-gray-900 dark:text-white">Currently Learning</h4>
+                    <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                        <li>Machine Learning</li>
+                        <li>Advanced Bioinformatics</li>
+                        <li>Database Management</li>
+                        <li>Cloud Computing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+        <!-- Education Section -->
+<section id="education" class="py-20 bg-gray-50 dark:bg-gray-900 transition-all duration-500 ease-in-out opacity-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Education
+            </h2>
+            <div class="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto rounded-full mb-8"></div>
+        </div>
+
+        <!-- Main Education Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- Current Education -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- UCSD Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                                    <svg class="w-10 h-10 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">University of California, San Diego</h3>
+                                    <p class="text-blue-600 dark:text-blue-400">B.S. Biology with Specialization in Bioinformatics</p>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">2024 - 2028</span>
+                        </div>
+                        
+                        <!-- Current Status & Achievements -->
+                        <div class="mb-6 space-y-4">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300">First Year Student at John Muir College</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300">Current University GPA: 3.9</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Pursuing a comprehensive program combining biological sciences with computational approaches, 
+                                focusing on bioinformatics applications in medical research and genomics.
+                            </p>
+                        </div>
+
+                        <!-- Current Coursework -->
+                        <div class="space-y-4 mb-6">
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Current Coursework</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <h5 class="font-medium text-gray-900 dark:text-white">Winter Quarter 2025</h5>
+                                    <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                                        <li>• BILD 5 - Data Analysis/Design for Bio</li>
+                                        <li>• MCWP 50 - Critical Writing II</li>
+                                        <li>• BILD 1 - The Cell</li>
+                                        <li>• CHEM 6A - General Chemistry II</li>
+                                        <li>• MATH 20A - Calculus/Science & Engineering</li>
+                                        <li>• HITO 87 - European Seminar</li>
+                                    </ul>
+                                </div>
+                                <div class="space-y-2">
+                                    <h5 class="font-medium text-gray-900 dark:text-white">Fall Quarter 2024</h5>
+                                    <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                                        <li>• MATH 10A - Calculus I</li>
+                                        <li>• CHEM 6A - General Chemistry I</li>
+                                        <li>• CSE 8A - Intro to Programming</li>
+                                        <li>• BILD 4 - Introductory Biology Lab</li>
+                                        <li>• MCWP 40 - Critical Writing I</li>
+                                        <li>• CSE 87 - Bioinformatics Seminar</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Placement -->
+                        <div class="space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Advanced Placement Courses</h4>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                                    <li>Biology</li>
+                                    <li>Chemistry</li>
+                                    <li>U.S. History</li>
+                                </div>
+                                <div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                                    <li>Calculus</li>
+                                    <li>Computer Science</li>
+                                    <li>Government & Politics</li>
+                                </div>
+                                <div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                                    <li>English Literature</li>
+                                    <li>English Language</li>
+                                    <li>Human Geography</li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prior Education & Experience -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Academic Background & Experience</h4>
+                        
+                        <!-- High School -->
+                        <div class="mb-6">
+                            <div class="flex items-center space-x-2 mb-3">
+                                <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300">High School GPA: 4.4</span>
+                            </div>
+                            
+                            <!-- Medical Science Academy -->
+                            <div class="mb-4">
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-2">Medical Science Academy - 3 Years</h5>
+                                <ul class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                                    <li>• Advanced Physiology</li>
+                                    <li>• Biotechnology</li>
+                                    <li>• Biomedical Innovations</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Medical Experience -->
+                        <div class="space-y-2">
+                            <h5 class="font-medium text-gray-900 dark:text-white">Clinical Experience</h5>
+                            <div class="text-gray-600 dark:text-gray-400">
+                                <p>1 Year Volunteer Experience at Cedars-Sinai Medical Center</p>
+                                <p class="text-sm">Neurology Department • Patient Care & Clinical Support</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Timeline -->
+            <div class="lg:col-span-1">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Academic Timeline</h4>
+                        <div class="relative">
+                            <div class="absolute left-3 top-0 h-full w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+                            <!-- Timeline Items -->
+                            <div class="space-y-8">
+                                <!-- Medical Science Academy -->
+                                <div class="relative flex items-center">
+                                    <div class="absolute left-0 w-6 h-6 bg-green-500 rounded-full"></div>
+                                    <div class="ml-10">
+                                        <h5 class="font-medium text-gray-900 dark:text-white">Medical Science Academy</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">2020 - 2023</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                            Advanced medical & biological sciences training
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Current -->
+                                <div class="relative flex items-center">
+                                    <div class="absolute left-0 w-6 h-6 bg-blue-600 dark:bg-blue-400 rounded-full"></div>
+                                    <div class="ml-10">
+                                        <h5 class="font-medium text-gray-900 dark:text-white">First Year</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">2024 - Present</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                            Declared Biology Major with Bioinformatics Specialization
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Future -->
+                                <div class="relative flex items-center">
+                                    <div class="absolute left-0 w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                                    <div class="ml-10">
+                                        <h5 class="font-medium text-gray-900 dark:text-white">Expected Graduation</h5>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">2028</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                            B.S. Biology with Specialization in Bioinformatics
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Achievements Summary -->
+                <div class="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Academic Highlights</h4>
+                        <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>40+ AP Credits Earned</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Satisfied UC Entry-Level Writing Requirement</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>American History & Institutions Requirement Satisfied</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>3.9 University GPA</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>4.4 High School GPA</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Medical Science Academy Graduate</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Cedars-Sinai Clinical Experience</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Contact Section -->
+<section id="contact" class="py-20 bg-white dark:bg-gray-800 transition-all duration-500 ease-in-out opacity-0" x-data="contactForm()">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Get In Touch
+            </h2>
+            <div class="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto rounded-full mb-8"></div>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Interested in collaboration or have questions about my research? I'd love to hear from you!
+            </p>
+        </div>
+
+        <!-- Contact Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Contact Information -->
+            <div class="space-y-8">
+                <!-- Direct Contact -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Direct Contact</h3>
+                    <div class="space-y-4">
+                        <!-- Email -->
+                        <a href="mailto:zalibhai@ucsd.edu" 
+                           class="flex items-center space-x-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>zalibhai@ucsd.edu</span>
+                        </a>
+                        <!-- Location -->
+                        <div class="flex items-center space-x-3 text-gray-600 dark:text-gray-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>University of California, San Diego</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Connect With Me</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                        <!-- GitHub -->
+                        <a href="https://github.com/Zaki-1052" target="_blank" rel="noopener noreferrer"
+                        class="p-3 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                                class="w-6 h-6" alt="GitHub">
+                        </a>
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/zaki_1052/" target="_blank" rel="noopener noreferrer"
+                        class="p-3 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg"
+                                class="w-6 h-6" alt="Instagram">
+                        </a>
+
+                        <!-- Threads -->
+                        <a href="https://www.threads.net/@zaki_1052" target="_blank" rel="noopener noreferrer"
+                        class="p-3 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Threads_%28app%29_logo.svg"
+                                class="w-6 h-6" alt="Threads">
+                        </a>
+
+                        <!-- Bluesky -->
+                        <a href="https://bsky.app/profile/zaki1052.bsky.social" target="_blank" rel="noopener noreferrer"
+                        class="p-3 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg" 
+                                class="w-6 h-6" alt="Bluesky">
+                        </a>
+
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/zakir-alibhai-541454276/" target="_blank" rel="noopener noreferrer"
+                        class="p-3 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg"
+                                class="w-6 h-6" alt="LinkedIn">
+                        </a>
+
+                        <!-- Discord -->
+                        <a href="https://discord.gg/EK6wrPJEQg" target="_blank" rel="noopener noreferrer"
+                        class="p-3 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg"
+                                class="w-6 h-6" alt="Discord">
+                        </a>
+
+                        <!-- Facebook (commented out) -->
+                        <!--
+                        <a href="https://www.facebook.com/profile.php?id=100089936287869" target="_blank" rel="noopener noreferrer"
+                        class="p-3 bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg"
+                                class="w-6 h-6" alt="Facebook">
+                        </a>
+                        -->
+                    </div>
+                </div>
+
+                <!-- Availability Info -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Availability</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Currently open to research collaborations, internship opportunities, and academic discussions.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-xl shadow-lg p-6">
+                <form action="https://formspree.io/f/xzzblaeb" method="POST" 
+                    x-data="contactForm()" 
+                    @submit.prevent="submitFormspree"
+                    class="space-y-6">
+                    <!-- Form Status Messages -->
+                    <div x-show="formStatus.show" 
+                        :class="formStatus.success ? 'bg-green-100 dark:bg-green-800' : 'bg-red-100 dark:bg-red-800'"
+                        class="p-4 rounded-lg mb-6">
+                        <p x-text="formStatus.message" 
+                        :class="formStatus.success ? 'text-green-700 dark:text-green-200' : 'text-red-700 dark:text-red-200'">
+                        </p>
+                    </div>
+
+                    <!-- Name Fields -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="firstName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                First Name
+                            </label>
+                            <input type="text" id="firstName" name="First Name" x-model="form.firstName"
+                                :class="{'border-red-500': errors.firstName}"
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                required>
+                            <p x-show="errors.firstName" x-text="errors.firstName" class="mt-1 text-sm text-red-600 dark:text-red-400"></p>
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Last Name
+                            </label>
+                            <input type="text" id="lastName" name="Last Name" x-model="form.lastName"
+                                :class="{'border-red-500': errors.lastName}"
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                                required>
+                            <p x-show="errors.lastName" x-text="errors.lastName" class="mt-1 text-sm text-red-600 dark:text-red-400"></p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Email
+                        </label>
+                        <input type="email" id="email" name="Email" x-model="form.email"
+                            :class="{'border-red-500': errors.email}"
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                            required>
+                        <p x-show="errors.email" x-text="errors.email" class="mt-1 text-sm text-red-600 dark:text-red-400"></p>
+                    </div>
+
+                    <!-- Subject -->
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Subject
+                        </label>
+                        <select id="subject" name="Subject" x-model="form.subject"
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            <option value="">Select a subject</option>
+                            <option value="research">Research Collaboration</option>
+                            <option value="internship">Internship Opportunity</option>
+                            <option value="academic">Academic Discussion</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Message -->
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Message
+                        </label>
+                        <textarea id="message" name="Message" x-model="form.message" rows="4"
+                                :class="{'border-red-500': errors.message}"
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white resize-none"
+                                required></textarea>
+                        <p x-show="errors.message" x-text="errors.message" class="mt-1 text-sm text-red-600 dark:text-red-400"></p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex items-center justify-end">
+                        <button type="submit"
+                                :disabled="loading"
+                                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span x-show="!loading">Send Message</span>
+                            <span x-show="loading" class="flex items-center">
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Sending...
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features & Technical Details Section -->
+<section id="features" class="py-20 bg-gray-50 dark:bg-gray-900 transition-all duration-500 ease-in-out opacity-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Technical Features
+            </h2>
+            <div class="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto rounded-full mb-8"></div>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Exploring the technical capabilities and interactive elements that power this portfolio
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Interactive Elements -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Interactive Elements</h3>
+                </div>
+                <ul class="space-y-3 text-gray-600 dark:text-gray-300">
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Smooth Scrolling Navigation</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Dynamic Project Filtering</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Dark/Light Mode Toggle</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Scroll Animations</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Technical Features -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Technical Features</h3>
+                </div>
+                <ul class="space-y-3 text-gray-600 dark:text-gray-300">
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>SEO Optimized Structure</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Performance Optimization</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Responsive Design</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Modern Web Technologies</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Bioinformatics Tools -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
+                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Bioinformatics Tools</h3>
+                </div>
+                <ul class="space-y-3 text-gray-600 dark:text-gray-300">
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Molecular Visualizations</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Data Analysis Examples</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Interactive Demonstrations</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Research Visualizations</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Technical Stats -->
+        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">100%</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Lighthouse Performance</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">A+</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Security Rating</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">SEO</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Optimized</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">PWA</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Ready</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <!-- Footer -->
+<footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-7 py-8">
+        <!-- Main Footer Content -->
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-5 md:space-y-0 mb-4">
+            <!-- Left: Creator Info -->
+            <div class="flex flex-col items-center md:items-start">
+                <div class="flex flex-col">
+                    <p class="text-[1.05rem] text-gray-600 dark:text-gray-400">
+                        Designed & Developed
+                    </p>
+                    <p class="text-[1.05rem] text-gray-600 dark:text-gray-400">
+                        by <a href="https://discord.gg/EK6wrPJEQg" target="_blank" rel="noopener noreferrer" 
+                            class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-500 transition font-medium">
+                            Zakir Alibhai
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Center: Quick Links -->
+            <div class="flex flex-wrap justify-center -ml-4">
+                <a href="#home" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition px-3">Home</a>
+                <a href="#about" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition px-3">About</a>
+                <a href="#projects" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition px-3">Projects</a>
+                <a href="#skills" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition px-3">Skills</a>
+                <a href="#education" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition px-3">Education</a>
+                <a href="#contact" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition px-3">Contact</a>
+            </div>
+
+            <!-- Right: Source & Social -->
+            <div class="flex items-center md:pl-3.5">
+                <a href="https://github.com/Zaki-1052/portfolio" target="_blank" rel="noopener noreferrer"
+                   class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition flex items-center space-x-2 text-[1.025rem]">
+                    <svg class="w-[1.3rem] h-[1.3rem]" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <span class="font-medium">Source Code</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Copyright Text (Centered) -->
+        <div class="text-center pt-2 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-[0.925rem] text-gray-500 dark:text-gray-500">
+                © 2024 All rights reserved
+            </p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
