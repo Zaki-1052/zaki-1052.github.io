@@ -133,10 +133,10 @@
             </div>
 
             <!-- Mobile menu button -->
-            <div class="md:hidden flex items-center space-x-4">
+            <div class="md:hidden flex items-center space-x-3 mr-3">
                 <!-- Dark Mode Toggle -->
                 <button @click="toggleDark()" 
-                        class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        class="p-2.5 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                     <svg x-show="!isDark"
                         x-cloak 
                         class="w-5 h-5 text-gray-800 dark:text-white" 
@@ -156,11 +156,11 @@
                 </button>
 
                 <!-- Menu button -->
-                <button @click="toggleMenu" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                    <svg class="h-6 w-6" x-show="!isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button @click="toggleMenu" class="p-1.5 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    <svg class="h-7 w-7" x-show="!isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
-                    <svg class="h-6 w-6" x-show="isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="h-7 w-7" x-show="isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
