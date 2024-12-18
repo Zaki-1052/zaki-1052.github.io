@@ -816,40 +816,40 @@
             <div class="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto rounded-full mb-8"></div>
             
             <!-- Skill Categories -->
-            <div class="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2 sm:gap-3 mb-12"> <!-- changed to grid on mobile -->
+            <div class="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2 sm:gap-3 mb-12">
                 <button @click="activeCategory = 'all'" 
                         :class="{ 'bg-blue-600 text-white': activeCategory === 'all', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'all' }"
-                        class="px-2 sm:px-3 py-2 rounded-full text-sm sm:text-base transition duration-300 hover:shadow-lg">
+                        class="col-span-2 sm:col-span-1 px-6 max-sm:px-8 py-2 rounded-full text-base max-sm:text-lg transition duration-300 hover:shadow-lg mx-1 sm:mx-0">
                     All Skills
                 </button>
                 <button @click="activeCategory = 'programming'" 
                         :class="{ 'bg-blue-600 text-white': activeCategory === 'programming', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'programming' }"
-                        class="px-2 sm:px-3 py-2 rounded-full text-sm sm:text-base transition duration-300 hover:shadow-lg">
+                        class="px-3 py-2 rounded-full text-base transition duration-300 hover:shadow-lg">
                     Programming
                 </button>
                 <button @click="activeCategory = 'biotech'" 
                         :class="{ 'bg-blue-600 text-white': activeCategory === 'biotech', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'biotech' }"
-                        class="px-2 sm:px-3 py-2 rounded-full text-sm sm:text-base transition duration-300 hover:shadow-lg">
+                        class="px-3 py-2 rounded-full text-base transition duration-300 hover:shadow-lg">
                     Biotechnology
                 </button>
                 <button @click="activeCategory = 'medical'" 
                         :class="{ 'bg-blue-600 text-white': activeCategory === 'medical', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'medical' }"
-                        class="px-2 sm:px-3 py-2 rounded-full text-sm sm:text-base transition duration-300 hover:shadow-lg">
+                        class="px-3 py-2 rounded-full text-base transition duration-300 hover:shadow-lg">
                     Medical Experience
                 </button>
                 <button @click="activeCategory = 'devops'" 
                         :class="{ 'bg-blue-600 text-white': activeCategory === 'devops', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'devops' }"
-                        class="px-2 sm:px-3 py-2 rounded-full text-sm sm:text-base transition duration-300 hover:shadow-lg">
+                        class="px-3 py-2 rounded-full text-base transition duration-300 hover:shadow-lg">
                     DevOps & Infrastructure
                 </button>
                 <button @click="activeCategory = 'tools'" 
                         :class="{ 'bg-blue-600 text-white': activeCategory === 'tools', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'tools' }"
-                        class="px-2 sm:px-3 py-2 rounded-full text-sm sm:text-base transition duration-300 hover:shadow-lg">
+                        class="px-3 py-2 rounded-full text-base transition duration-300 hover:shadow-lg">
                     Tools & Frameworks
                 </button>
                 <button @click="activeCategory = 'competencies'" 
                         :class="{ 'bg-blue-600 text-white': activeCategory === 'competencies', 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300': activeCategory !== 'competencies' }"
-                        class="col-span-2 sm:col-span-1 px-2 sm:px-3 py-2 rounded-full text-sm sm:text-base transition duration-300 hover:shadow-lg mx-auto sm:mx-0">
+                        class="px-3 py-2 rounded-full text-base transition duration-300 hover:shadow-lg">
                     Additional Competencies
                 </button>
             </div>
