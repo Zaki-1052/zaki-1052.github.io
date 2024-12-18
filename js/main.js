@@ -2,11 +2,26 @@
 document.addEventListener('alpine:init', () => {
     // Navigation Component
     Alpine.data('navigation', () => ({
-        isDark: localStorage.getItem('darkMode') === 'true',
+        isDark: localStorage.getItem('darkMode') === 'true' || 
+                (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
         isOpen: false,
+        init() {
+            // Add this init function to watch for dark mode changes
+            this.$watch('isDark', value => {
+                if (value) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                localStorage.setItem('darkMode', value.toString());
+            });
+        },
         toggleMenu() {
             this.isOpen = !this.isOpen;
             document.body.style.overflow = this.isOpen ? 'hidden' : '';
+        },
+        toggleDark() {
+            this.isDark = !this.isDark;
         }
     }));
 

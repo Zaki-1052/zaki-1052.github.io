@@ -78,3 +78,57 @@ html.dark {
 .opacity-100 {
     opacity: 1;
 }
+
+/* Add to your style.css */
+.dark .dark\:text-white {
+    color: white !important;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .dark .dark\:text-white {
+        color: white !important;
+    }
+    
+    .dark .dark\:bg-gray-700 {
+        background-color: rgba(55, 65, 81, 1) !important;
+    }
+}
+
+/* Add to your style.css */
+
+[x-cloak] {
+    display: none !important;
+}
+    
+
+
+.dark .dark\:text-white {
+    --tw-text-opacity: 1;
+    color: rgba(255, 255, 255, var(--tw-text-opacity)) !important;
+}
+
+/* Force icon visibility */
+
+button svg {
+    display: block;
+}
+
+/* Hide appropriate icon based on dark mode */
+/*
+.dark button svg[x-show="!isDark"],
+:not(.dark) button svg[x-show="isDark"] {
+    display: none !important;
+}
+
+/* Ensure proper positioning on mobile */
+@media (max-width: 768px) {
+    .fixed.top-4.right-4 {
+        position: fixed !important;
+        top: 1rem !important;
+        right: 1rem !important;
+    }
+}
