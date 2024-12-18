@@ -12,6 +12,28 @@
             document.documentElement.classList.add('dark');
         }
     </script>
+    <script>
+        // Check for dark mode preference and stored setting
+        function initializeDarkMode() {
+            const darkModeStored = localStorage.getItem('darkMode');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // If there's a stored preference, use that
+            if (darkModeStored !== null) {
+                if (darkModeStored === 'true') {
+                    document.documentElement.classList.add('dark');
+                }
+            }
+            // Otherwise, use system preference
+            else if (prefersDark) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'true');
+            }
+        }
+        
+        // Run immediately
+        initializeDarkMode();
+    </script>
 
     <!-- Alpine.js CDN -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>

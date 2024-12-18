@@ -13,6 +13,28 @@
             document.documentElement.classList.add('dark');
         }
     </script>
+    <script>
+        // Check for dark mode preference and stored setting
+        function initializeDarkMode() {
+            const darkModeStored = localStorage.getItem('darkMode');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // If there's a stored preference, use that
+            if (darkModeStored !== null) {
+                if (darkModeStored === 'true') {
+                    document.documentElement.classList.add('dark');
+                }
+            }
+            // Otherwise, use system preference
+            else if (prefersDark) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'true');
+            }
+        }
+        
+        // Run immediately
+        initializeDarkMode();
+    </script>
     <!-- Alpine.js CDN -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -65,11 +87,15 @@
     <!-- Navigation -->
     <nav class="fixed w-full bg-white dark:bg-gray-800 shadow-md z-50" x-data="navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between md:h-16 h-20">
             <!-- Logo/Name -->
             <div class="flex-shrink-0 flex items-center">
                 <a href="#" class="text-xl font-bold text-gray-800 dark:text-white">
-                    Zakir Alibhai | Bioinformatics Portfolio
+                    <span class="hidden md:inline">Zakir Alibhai | Bioinformatics Portfolio</span>
+                    <span class="md:hidden flex flex-col">
+                        <span>Zakir Alibhai</span>
+                        <span class="text-lg">Bioinformatics Portfolio</span>
+                    </span>
                 </a>
             </div>
 
@@ -107,7 +133,29 @@
             </div>
 
             <!-- Mobile menu button -->
-            <div class="md:hidden flex items-center">
+            <div class="md:hidden flex items-center space-x-4">
+                <!-- Dark Mode Toggle -->
+                <button @click="toggleDark()" 
+                        class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    <svg x-show="!isDark"
+                        x-cloak 
+                        class="w-5 h-5 text-gray-800 dark:text-white" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    <svg x-show="isDark" 
+                        x-cloak
+                        class="w-5 h-5 text-gray-800 dark:text-white" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                    </svg>
+                </button>
+
+                <!-- Menu button -->
                 <button @click="toggleMenu" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                     <svg class="h-6 w-6" x-show="!isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -121,8 +169,8 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div x-show="isOpen" class="md:hidden bg-white dark:bg-gray-800 shadow-lg">
-        <div class="px-2 pt-2 pb-3 space-y-1">
+<div x-show="isOpen" class="md:hidden bg-white dark:bg-gray-800 shadow-lg">
+    <div class="px-2 pt-2 pb-3 space-y-1">
             <a href="#home" @click="isOpen = false" class="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Home</a>
             <a href="#about" @click="isOpen = false" class="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">About</a>
             <a href="#projects" @click="isOpen = false" class="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">Projects</a>
