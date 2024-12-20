@@ -1890,8 +1890,38 @@ class="space-y-8">
     </div>
 
     <!-- 3. DNA Sequence Viewer -->
-    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg">
-        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Interactive DNA Sequence</h3>
+    <div x-data="dnaViewer" class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Interactive DNA Sequence</h3>
+            <div class="flex space-x-4">
+                <!-- Search input -->
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        x-model="searchQuery"
+                        @keyup.enter="search"
+                        placeholder="Search sequence..."
+                        class="px-3 py-1 text-sm rounded-lg bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500"
+                    >
+                    <button 
+                        @click="nextMatch"
+                        x-show="matches.length > 0"
+                        class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
+                    >
+                        ↓
+                    </button>
+                </div>
+                
+                <!-- Complement toggle -->
+                <button 
+                    @click="showComplement = !showComplement" 
+                    class="px-3 py-1 text-sm rounded-lg"
+                    :class="showComplement ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200'"
+                >
+                    Show Complement
+                </button>
+            </div>
+        </div>
         <div id="dna-viewer" class="w-full h-[400px]"></div>
     </div>
 

@@ -312,6 +312,7 @@ function initDNAViewer() {
 }
 
 // Force-directed graph showing relationships between skills
+/*
 function initSkillsNetwork() {
     const data = {
         nodes: [
@@ -328,9 +329,11 @@ function initSkillsNetwork() {
     };
     // We'll implement the full D3.js force-directed graph next
 }
+*/
 
 
 // Timeline visualization showing project progression
+/*
 function initProjectTimeline() {
     const projects = [
         { name: "GPTPortal", start: "2024-01", end: "2024-03" },
@@ -339,6 +342,7 @@ function initProjectTimeline() {
     ];
     // We'll implement the full timeline visualization next
 }
+*/
 
 
 
@@ -1054,6 +1058,516 @@ document.addEventListener('alpine:init', () => {
 
         updateChartTheme() {
             this.initChart();
+        }
+    }));
+});
+
+// DNA Sequence Viewer Component
+document.addEventListener('alpine:init', () => {
+    Alpine.data('dnaViewer', () => ({
+        sequence: 'ATGCTAGCTAGCTGATCGATCGTAGCTAGCTGATCGATCGTAGCTAGCTGATCG',
+        viewportStart: 0,
+        viewportSize: 30,
+        baseColors: {
+            'A': '#FF6B6B', // Red
+            'T': '#4ECDC4', // Teal
+            'G': '#45B7D1', // Blue
+            'C': '#96CEB4'  // Green
+        },
+        complementMap: {
+            'A': 'T',
+            'T': 'A',
+            'G': 'C',
+            'C': 'G'
+        },
+        showComplement: false,
+        zoom: 1,
+        isDragging: false,
+        lastX: 0,
+        searchQuery: '',
+        selectedBase: null,
+        sequenceInfo: {
+            length: 0,
+            gc: 0,
+            at: 0
+        },
+        isSearching: false,
+        matches: [],
+        currentMatchIndex: -1,
+        resizeTimeout: null,
+
+        init() {
+            this.initViewer();
+            this.calculateSequenceInfo();
+            
+            this.$watch('showComplement', () => {
+                this.initViewer();
+            });
+            
+            this.$watch('$store.darkMode', () => {
+                this.updateTheme();
+            });
+
+            window.addEventListener('resize', this.handleResize.bind(this));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    this.navigate(-1);
+                } else if (e.key === 'ArrowRight') {
+                    this.navigate(1);
+                }
+            });
+        },
+
+        handleResize() {
+            if (this.resizeTimeout) {
+                clearTimeout(this.resizeTimeout);
+            }
+            this.resizeTimeout = setTimeout(() => {
+                this.initViewer();
+            }, 250);
+        },
+
+        calculateSequenceInfo() {
+            const gc = (this.sequence.match(/[GC]/g) || []).length;
+            const at = (this.sequence.match(/[AT]/g) || []).length;
+            
+            this.sequenceInfo = {
+                length: this.sequence.length,
+                gc: ((gc / this.sequence.length) * 100).toFixed(1),
+                at: ((at / this.sequence.length) * 100).toFixed(1)
+            };
+        },
+
+        initViewer() {
+            const container = d3.select('#dna-viewer');
+            container.selectAll('*').remove();
+
+            const margin = { top: 40, right: 20, bottom: 40, left: 20 };
+            const width = container.node().getBoundingClientRect().width - margin.left - margin.right;
+            const height = container.node().getBoundingClientRect().height - margin.top - margin.bottom;
+
+            const svg = container.append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            this.drawDNAStrands(svg, width, height);
+            this.addControls(svg, width, height);
+        },
+
+        drawDNAStrands(svg, width, height) {
+            const baseWidth = 30 * this.zoom;
+            const baseHeight = 40;
+            // Adjust yOffset based on complement visibility
+            const yOffset = this.showComplement ? height / 3 : height / 2;
+            
+            // Add sequence navigation controls with adjusted position
+            const navControlsY = this.showComplement ? height - 140 : height - 100;
+            this.addNavigationControls(svg, width, navControlsY);
+
+            // Add sequence info panel
+            this.addSequenceInfo(svg, width);
+
+            const visibleSequence = this.sequence.slice(this.viewportStart, this.viewportStart + this.viewportSize);
+
+            // Draw main strand with enhanced interactivity
+            const bases = svg.selectAll('.base')
+                .data(visibleSequence.split('').map((base, index) => ({base, index})))
+                .join('g')
+                .attr('class', 'base')
+                .attr('transform', (d, i) => `translate(${i * baseWidth}, ${yOffset})`);
+
+            // Enhanced base rectangles with interactions
+            bases.append('rect')
+                .attr('width', baseWidth * 0.9)
+                .attr('height', baseHeight)
+                .attr('rx', 4)
+                .attr('fill', d => this.baseColors[d.base])
+                .attr('opacity', (d) => {
+                    const globalIndex = d.index + this.viewportStart;
+                    return this.isHighlighted(globalIndex) ? 1 : 0.8;
+                })
+                .attr('stroke', (d) => {
+                    const globalIndex = d.index + this.viewportStart;
+                    return this.isHighlighted(globalIndex) ? '#FCD34D' : 'none';
+                })
+                .attr('stroke-width', 2)
+                .style('cursor', 'pointer')
+                .on('mouseenter', (event, d) => this.showBaseInfo(event, d))
+                .on('mouseleave', () => this.hideBaseInfo())
+                .on('click', (event, d) => this.toggleBaseSelection(d));
+
+            // Base letters
+            bases.append('text')
+                .attr('x', baseWidth * 0.45)
+                .attr('y', baseHeight / 2)
+                .attr('text-anchor', 'middle')
+                .attr('dominant-baseline', 'middle')
+                .attr('fill', 'white')
+                .attr('font-weight', 'bold')
+                .text(d => d.base);
+
+            // Complement strand with animations
+            if (this.showComplement) {
+                const complements = svg.selectAll('.complement')
+                    .data(visibleSequence.split('').map((base, index) => ({base, index})))
+                    .join('g')
+                    .attr('class', 'complement')
+                    .attr('transform', (d, i) => `translate(${i * baseWidth}, ${yOffset + baseHeight + 20})`);
+
+                complements.append('rect')
+                    .attr('width', baseWidth * 0.9)
+                    .attr('height', baseHeight)
+                    .attr('rx', 4)
+                    .attr('fill', d => this.baseColors[this.complementMap[d.base]])
+                    .attr('opacity', 0)
+                    .transition()
+                    .duration(500)
+                    .attr('opacity', 0.8);
+
+                complements.append('text')
+                    .attr('x', baseWidth * 0.45)
+                    .attr('y', baseHeight / 2)
+                    .attr('text-anchor', 'middle')
+                    .attr('dominant-baseline', 'middle')
+                    .attr('fill', 'white')
+                    .attr('font-weight', 'bold')
+                    .text(d => this.complementMap[d.base])
+                    .attr('opacity', 0)
+                    .transition()
+                    .duration(500)
+                    .delay(250)
+                    .attr('opacity', 1);
+
+                // Animated connecting lines
+                bases.append('line')
+                    .attr('x1', baseWidth * 0.45)
+                    .attr('y1', baseHeight)
+                    .attr('x2', baseWidth * 0.45)
+                    .attr('y2', baseHeight)
+                    .attr('stroke', this.isDarkMode() ? '#4B5563' : '#9CA3AF')
+                    .attr('stroke-width', 2)
+                    .attr('stroke-dasharray', '3,3')
+                    .transition()
+                    .duration(500)
+                    .delay(500)
+                    .attr('y2', baseHeight + 20);
+            }
+        },
+
+        addNavigationControls(svg, width, navControlsY) {
+            const navGroup = svg.append('g')
+                .attr('class', 'navigation')
+                .attr('transform', `translate(0, ${navControlsY})`);
+
+            // Add navigation buttons with improved spacing
+            const buttonSpacing = 60;
+            ['⟪', '←', '→', '⟫'].forEach((symbol, i) => {
+                const button = navGroup.append('g')
+                    .attr('class', 'nav-button')
+                    .attr('transform', `translate(${width/2 - (buttonSpacing * 1.5) + (i * buttonSpacing)}, 0)`)
+                    .style('cursor', 'pointer')
+                    .on('click', () => {
+                        switch(i) {
+                            case 0: this.navigate(-this.viewportSize); break;
+                            case 1: this.navigate(-1); break;
+                            case 2: this.navigate(1); break;
+                            case 3: this.navigate(this.viewportSize); break;
+                        }
+                    });
+
+                button.append('circle')
+                    .attr('r', 15)
+                    .attr('fill', this.isDarkMode() ? '#4B5563' : '#E5E7EB')
+                    .attr('class', 'transition-colors duration-200')
+                    .on('mouseenter', function() {
+                        d3.select(this).attr('fill', d => this.isDarkMode() ? '#374151' : '#D1D5DB');
+                    })
+                    .on('mouseleave', function() {
+                        d3.select(this).attr('fill', d => this.isDarkMode() ? '#4B5563' : '#E5E7EB');
+                    });
+
+                button.append('text')
+                    .attr('text-anchor', 'middle')
+                    .attr('dominant-baseline', 'middle')
+                    .attr('fill', this.isDarkMode() ? '#E5E7EB' : '#4B5563')
+                    .attr('font-size', '14px')
+                    .text(symbol);
+            });
+        },
+
+        addSequenceInfo(svg, width) {
+            const infoGroup = svg.append('g')
+                .attr('class', 'sequence-info')
+                .attr('transform', 'translate(10, 10)');
+
+            const info = [
+                `Length: ${this.sequenceInfo.length}bp`,
+                `GC Content: ${this.sequenceInfo.gc}%`,
+                `AT Content: ${this.sequenceInfo.at}%`,
+                `Position: ${this.viewportStart + 1}-${Math.min(this.viewportStart + this.viewportSize, this.sequence.length)}`
+            ];
+
+            info.forEach((text, i) => {
+                infoGroup.append('text')
+                    .attr('x', 0)
+                    .attr('y', i * 20)
+                    .attr('fill', this.isDarkMode() ? '#E5E7EB' : '#4B5563')
+                    .attr('font-size', '12px')
+                    .text(text);
+            });
+        },
+
+        showBaseInfo(event, d) {
+            // Remove any existing tooltips
+            this.hideBaseInfo();
+
+            const tooltip = d3.select('#dna-viewer')
+                .append('div')
+                .attr('class', 'tooltip')
+                .style('position', 'absolute')
+                .style('background-color', this.isDarkMode() ? '#1F2937' : 'white')
+                .style('padding', '12px')
+                .style('border-radius', '8px')
+                .style('box-shadow', '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)')
+                .style('font-size', '12px')
+                .style('pointer-events', 'none')
+                .style('z-index', 1000)
+                .style('border', `1px solid ${this.isDarkMode() ? '#374151' : '#E5E7EB'}`);
+
+            const globalIndex = d.index + this.viewportStart;
+            
+            // Calculate local statistics (±5 bases)
+            const start = Math.max(0, globalIndex - 5);
+            const end = Math.min(this.sequence.length, globalIndex + 6);
+            const localSeq = this.sequence.slice(start, end);
+            const localStats = this.calculateLocalStats(localSeq);
+
+            const tooltipContent = `
+                <div class="space-y-2">
+                    <div class="font-semibold text-sm ${this.isDarkMode() ? 'text-white' : 'text-gray-900'}">
+                        Base: ${d.base}
+                    </div>
+                    <div class="text-xs ${this.isDarkMode() ? 'text-gray-300' : 'text-gray-600'}">
+                        Position: ${globalIndex + 1}<br>
+                        Complement: ${this.complementMap[d.base]}<br>
+                        Local Context (±5 bases):<br>
+                        GC Content: ${localStats.gc}%<br>
+                        Stability Score: ${localStats.stability}<br>
+                        ${localStats.motif !== 'No common motif' ? `Motif: ${localStats.motif}<br>` : ''}
+                        Sequence: ${localSeq}
+                    </div>
+                </div>
+            `;
+
+            tooltip.html(tooltipContent);
+
+            const tooltipNode = tooltip.node();
+            const tooltipRect = tooltipNode.getBoundingClientRect();
+            const containerRect = event.target.closest('#dna-viewer').getBoundingClientRect();
+
+            let left = event.pageX - containerRect.left - tooltipRect.width / 2;
+            let top = event.pageY - containerRect.top - tooltipRect.height - 10;
+
+            // Keep tooltip within container bounds
+            left = Math.max(10, Math.min(left, containerRect.width - tooltipRect.width - 10));
+            top = Math.max(10, Math.min(top, containerRect.height - tooltipRect.height - 10));
+
+            tooltip
+                .style('left', `${left}px`)
+                .style('top', `${top}px`)
+                .style('opacity', 0)
+                .transition()
+                .duration(200)
+                .style('opacity', 1);
+        },
+
+        hideBaseInfo() {
+            d3.select('#dna-viewer')
+                .selectAll('.tooltip')
+                .transition()
+                .duration(200)
+                .style('opacity', 0)
+                .remove();
+        },
+
+        calculateLocalStats(sequence) {
+            const gc = (sequence.match(/[GC]/g) || []).length;
+            const stability = this.calculateStabilityScore(sequence);
+            const motif = this.findCommonMotif(sequence);
+            
+            return {
+                gc: ((gc / sequence.length) * 100).toFixed(1),
+                stability,
+                motif
+            };
+        },
+
+        calculateStabilityScore(sequence) {
+            const stackingEnergies = {
+                'GC': 3, 'CG': 3,
+                'AT': 2, 'TA': 2,
+                'GT': 1, 'TG': 1,
+                'GA': 1, 'AG': 1,
+                'CT': 1, 'TC': 1,
+                'CA': 1, 'AC': 1
+            };
+            
+            let score = 0;
+            for (let i = 0; i < sequence.length - 1; i++) {
+                const pair = sequence.slice(i, i + 2);
+                score += stackingEnergies[pair] || 0;
+            }
+            return (score / (sequence.length - 1)).toFixed(2);
+        },
+
+        findCommonMotif(sequence) {
+            const motifs = {
+                'TATA': 'TATA Box',
+                'CAAT': 'CAAT Box',
+                'GCCG': 'CpG Island',
+                'AATAAA': 'PolyA Signal',
+                'GAGA': 'GAGA Factor',
+                'CCAAT': 'CCAAT Box',
+                'CACGTG': 'E-box',
+                'TGACGT': 'CRE'
+            };
+            
+            for (const [pattern, name] of Object.entries(motifs)) {
+                if (sequence.includes(pattern)) return name;
+            }
+            return 'No common motif';
+        },
+
+        addControls(svg, width, height) {
+            // Adjust control position based on complement visibility
+            const controlsY = this.showComplement ? height - 100 : height - 60;
+            
+            const controlsGroup = svg.append('g')
+                .attr('class', 'controls')
+                .attr('transform', `translate(0, ${controlsY})`);
+
+            // Add zoom controls with improved styling and interaction
+            const zoomControls = [
+                { symbol: '+', action: () => this.adjustZoom(0.2), x: width - 60 },
+                { symbol: '−', action: () => this.adjustZoom(-0.2), x: width - 20 }
+            ];
+
+            zoomControls.forEach(control => {
+                const button = controlsGroup.append('g')
+                    .attr('class', `zoom-${control.symbol === '+' ? 'in' : 'out'}`)
+                    .style('cursor', 'pointer')
+                    .on('click', control.action);
+
+                // Button background with hover effect
+                button.append('circle')
+                    .attr('cx', control.x)
+                    .attr('cy', 20)
+                    .attr('r', 15)
+                    .attr('fill', this.isDarkMode() ? '#4B5563' : '#E5E7EB')
+                    .attr('class', 'transition-colors duration-200')
+                    .on('mouseenter', function() {
+                        d3.select(this)
+                            .transition()
+                            .duration(200)
+                            .attr('fill', d => this.isDarkMode() ? '#374151' : '#D1D5DB');
+                    })
+                    .on('mouseleave', function() {
+                        d3.select(this)
+                            .transition()
+                            .duration(200)
+                            .attr('fill', d => this.isDarkMode() ? '#4B5563' : '#E5E7EB');
+                    });
+
+                // Button symbol
+                button.append('text')
+                    .attr('x', control.x)
+                    .attr('y', 20)
+                    .attr('text-anchor', 'middle')
+                    .attr('dominant-baseline', 'middle')
+                    .attr('fill', this.isDarkMode() ? '#E5E7EB' : '#4B5563')
+                    .attr('font-size', '18px')
+                    .attr('font-weight', 'bold')
+                    .text(control.symbol);
+            });
+        },
+
+        adjustZoom(delta) {
+            const newZoom = Math.max(0.5, Math.min(2, this.zoom + delta));
+            if (newZoom !== this.zoom) {
+                this.zoom = newZoom;
+                this.initViewer();
+            }
+        },
+
+        navigate(delta) {
+            const newStart = Math.max(0, Math.min(
+                this.viewportStart + delta,
+                this.sequence.length - this.viewportSize
+            ));
+            if (newStart !== this.viewportStart) {
+                this.viewportStart = newStart;
+                this.initViewer();
+            }
+        },
+
+        isHighlighted(index) {
+            return this.matches.includes(index) || index === this.selectedBase;
+        },
+
+        search() {
+            if (!this.searchQuery) {
+                this.matches = [];
+                this.currentMatchIndex = -1;
+                this.initViewer();
+                return;
+            }
+
+            this.matches = [];
+            let index = -1;
+            const searchTerm = this.searchQuery.toUpperCase();
+            
+            while ((index = this.sequence.indexOf(searchTerm, index + 1)) !== -1) {
+                this.matches.push(index);
+            }
+            
+            if (this.matches.length > 0) {
+                this.currentMatchIndex = 0;
+                this.viewportStart = Math.max(0, this.matches[0] - Math.floor(this.viewportSize / 4));
+                this.initViewer();
+            }
+        },
+
+        nextMatch() {
+            if (this.matches.length === 0) return;
+            
+            this.currentMatchIndex = (this.currentMatchIndex + 1) % this.matches.length;
+            this.viewportStart = Math.max(0, this.matches[this.currentMatchIndex] - Math.floor(this.viewportSize / 4));
+            this.initViewer();
+        },
+
+        toggleBaseSelection(d) {
+            const index = this.viewportStart + d.index;
+            this.selectedBase = this.selectedBase === index ? null : index;
+            this.initViewer();
+        },
+
+        isDarkMode() {
+            return document.documentElement.classList.contains('dark');
+        },
+
+        updateTheme() {
+            this.initViewer();
+        },
+
+        destroyed() {
+            if (this.resizeTimeout) {
+                clearTimeout(this.resizeTimeout);
+            }
+            window.removeEventListener('resize', this.handleResize.bind(this));
+            document.removeEventListener('keydown', this.handleKeydown);
         }
     }));
 });
