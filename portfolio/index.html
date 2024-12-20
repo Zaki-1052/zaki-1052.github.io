@@ -1896,9 +1896,45 @@ class="space-y-8">
     </div>
 
     <!-- 4. Project Timeline -->
-    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg">
-        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Timeline</h3>
-        <div id="project-timeline" class="w-full h-[400px]"></div>
+    <!-- Project Timeline -->
+    <div x-data="projectTimeline" class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg relative">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Project Timeline & Progress</h3>
+        <div class="h-[500px] w-full">
+            <div id="project-timeline" class="w-full h-full overflow-hidden"></div>
+        </div>
+        
+        <!-- Enhanced Tooltip -->
+        <div x-ref="tooltip" 
+            class="absolute hidden bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-50 max-w-md transform -translate-x-1/2"
+            style="pointer-events: none;">
+            <h4 class="font-semibold text-gray-900 dark:text-white mb-2" x-text="tooltipData.name"></h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-3" x-text="tooltipData.description"></p>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-gray-500 dark:text-gray-400">Timeline:</span>
+                    <span class="text-gray-700 dark:text-gray-300" x-text="tooltipData.dates"></span>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-gray-500 dark:text-gray-400">Category:</span>
+                    <span class="text-gray-700 dark:text-gray-300" x-text="tooltipData.category"></span>
+                </div>
+                <div class="space-y-1">
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-500 dark:text-gray-400">Completion:</span>
+                        <span class="text-gray-700 dark:text-gray-300" x-text="`${tooltipData.completion}%`"></span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
+                        <div class="h-full transition-all duration-300"
+                            :class="tooltipData.category === 'Web Development' ? 'bg-blue-600 dark:bg-blue-400' :
+                                    tooltipData.category === 'AI/ML' ? 'bg-green-600 dark:bg-green-400' :
+                                    tooltipData.category === 'Bioinformatics' ? 'bg-purple-600 dark:bg-purple-400' :
+                                    tooltipData.category === 'Research' ? 'bg-red-600 dark:bg-red-400' :
+                                    'bg-yellow-600 dark:bg-yellow-400'"
+                            :style="`width: ${tooltipData.completion}%`"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </section>

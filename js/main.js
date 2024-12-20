@@ -729,3 +729,331 @@ document.addEventListener('alpine:init', () => {
         }
     }));
 });
+
+// Project Timeline Visualization
+document.addEventListener('alpine:init', () => {
+    Alpine.data('projectTimeline', () => ({
+        chart: null,
+        zoom: null,
+        tooltipData: {
+            name: '',
+            description: '',
+            completion: 0,
+            dates: '',
+            category: ''
+        },
+        resizeObserver: null,
+
+        init() {
+            this.initChart();
+            
+            this.resizeObserver = new ResizeObserver(entries => {
+                this.initChart();
+            });
+            this.resizeObserver.observe(this.$el);
+            
+            this.$watch('$store.darkMode', () => {
+                this.updateChartTheme();
+            });
+        },
+
+        destroyed() {
+            if (this.resizeObserver) {
+                this.resizeObserver.disconnect();
+            }
+        },
+
+        initChart() {
+            const projects = [
+                {
+                    id: "website1",
+                    name: "First Brand Website",
+                    startDate: "2023-01",
+                    endDate: "2023-06",
+                    completion: 100,
+                    category: "Web\nDevelopment",
+                    description: "Initial personal brand website developed in 11th grade using basic HTML/CSS."
+                },
+                {
+                    id: "website2",
+                    name: "Second Brand Website",
+                    startDate: "2023-09",
+                    endDate: "2024-03",
+                    completion: 100,
+                    category: "Web\nDevelopment",
+                    description: "Enhanced personal brand website with improved design and functionality developed in 12th grade."
+                },
+                {
+                    id: "portfolio",
+                    name: "Portfolio Website",
+                    startDate: "2024-12",
+                    endDate: "2025-02",
+                    completion: 100,
+                    category: "Web\nDevelopment",
+                    description: "Professional portfolio website built with modern technologies including Tailwind CSS and Alpine.js."
+                },
+                {
+                    id: "gptportal",
+                    name: "GPTPortal",
+                    startDate: "2023-06",
+                    endDate: "2024-01",
+                    completion: 90,
+                    category: "AI/ML",
+                    description: "Advanced LLM interface integrating multiple AI providers with sophisticated features."
+                },
+                {
+                    id: "epigenai",
+                    name: "EpiGenAI Portal",
+                    startDate: "2023-08",
+                    endDate: "2024-01",
+                    completion: 80,
+                    category: "Bioinformatics",
+                    description: "Specialized portal for epigenetic data analysis using vector embeddings."
+                },
+                {
+                    id: "bild4",
+                    name: "BILD4 Research",
+                    startDate: "2024-09",
+                    endDate: "2024-12",
+                    completion: 100,
+                    category: "Research",
+                    description: "Comprehensive research on epigenetic effects of alcohol consumption."
+                },
+                {
+                    id: "genomic",
+                    name: "Genomic Analysis Tool",
+                    startDate: "2024-12",
+                    endDate: "2025-01",
+                    completion: 70,
+                    category: "Bioinformatics",
+                    description: "Python-based tool for processing and visualizing DNA sequence data."
+                },
+                {
+                    id: "rviz",
+                    name: "R Visualization",
+                    startDate: "2024-12",
+                    endDate: "2025-02",
+                    completion: 60,
+                    category: "Data Analysis",
+                    description: "R-based visualization toolkit for biological research data."
+                }
+            ];
+
+            const container = document.getElementById('project-timeline');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            const margin = { top: 30, right: 60, bottom: 60, left: 160 };
+            const width = container.clientWidth - margin.left - margin.right;
+            const height = container.clientHeight - margin.top - margin.bottom;
+
+            const svg = d3.select(container)
+                .append('svg')
+                .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+                .attr('width', '100%')
+                .attr('height', '100%');
+
+            this.zoom = d3.zoom()
+                .scaleExtent([0.5, 2])
+                .on('zoom', (event) => {
+                    mainGroup.attr('transform', event.transform);
+                });
+
+            svg.call(this.zoom);
+
+            const mainGroup = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const initialTransform = d3.zoomIdentity
+                .translate(margin.left, margin.top)
+                .scale(0.95);
+            svg.call(this.zoom.transform, initialTransform);
+
+            const timeScale = d3.scaleTime()
+                .domain([new Date('2023-01'), new Date('2025-03')])
+                .range([0, width]);
+
+            const categories = ['Web\nDevelopment', 'AI/ML', 'Bioinformatics', 'Research', 'Data Analysis'];
+            const categoryScale = d3.scaleBand()
+                .domain(categories)
+                .range([0, height])
+                .padding(0.4);
+
+            mainGroup.selectAll('.category-bg')
+                .data(categories)
+                .join('rect')
+                .attr('class', 'category-bg')
+                .attr('x', -margin.left)
+                .attr('y', d => categoryScale(d))
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', categoryScale.bandwidth())
+                .attr('fill', this.isDarkMode() ? '#1F2937' : '#F3F4F6')
+                .attr('rx', 6);
+
+            mainGroup.selectAll('.category-label')
+                .data(categories)
+                .join('text')
+                .attr('class', 'category-label')
+                .attr('x', -margin.left + 10)
+                .attr('y', d => categoryScale(d) + categoryScale.bandwidth() / 2 - 10)
+                .attr('fill', this.isDarkMode() ? '#E5E7EB' : '#374151')
+                .attr('dominant-baseline', 'middle')
+                .style('font-size', '14px')
+                .style('font-weight', '500')
+                .each(function(d) {
+                    const words = d.split('\n');
+                    d3.select(this)
+                        .selectAll('tspan')
+                        .data(words)
+                        .join('tspan')
+                        .attr('x', -margin.left + 10)
+                        .attr('dy', (_, i) => i === 0 ? 0 : '1.1em')
+                        .text(d => d)
+                        .style('font-size', '14px');
+                });
+
+            const projectGroups = mainGroup.selectAll('.project')
+                .data(projects)
+                .join('g')
+                .attr('class', 'project')
+                .attr('transform', d => `translate(${timeScale(new Date(d.startDate))},${categoryScale(d.category)})`);
+
+            projectGroups.append('rect')
+                .attr('class', 'project-rect')
+                .attr('width', d => Math.max(
+                    timeScale(new Date(d.endDate)) - timeScale(new Date(d.startDate)),
+                    100
+                ))
+                .attr('height', categoryScale.bandwidth() * 0.8)
+                .attr('y', categoryScale.bandwidth() * 0.1)
+                .attr('rx', 6)
+                .attr('fill', d => this.getProjectColor(d.category, d.completion))
+                .attr('opacity', 0.9)
+                .style('cursor', 'pointer')
+                .on('mouseenter', (event, d) => {
+                    d3.select(event.currentTarget)
+                        .transition()
+                        .duration(200)
+                        .attr('opacity', 1)
+                        .style('filter', 'brightness(1.2)');
+                    this.showTooltip(event, d);
+                })
+                .on('mousemove', (event, d) => {
+                    this.updateTooltipPosition(event);
+                })
+                .on('mouseleave', (event) => {
+                    d3.select(event.currentTarget)
+                        .transition()
+                        .duration(200)
+                        .attr('opacity', 0.9)
+                        .style('filter', null);
+                    this.hideTooltip();
+                });
+
+            projectGroups.append('text')
+                .attr('x', 10)
+                .attr('y', categoryScale.bandwidth() / 2)
+                .attr('fill', 'white')
+                .attr('dominant-baseline', 'middle')
+                .style('font-size', '14px')
+                .style('font-weight', '500')
+                .style('pointer-events', 'none')
+                .text(d => d.name);
+
+            projectGroups.append('rect')
+                .attr('class', 'completion-bar')
+                .attr('x', 0)
+                .attr('y', categoryScale.bandwidth() * 0.9 - 4)
+                .attr('width', d => {
+                    const width = timeScale(new Date(d.endDate)) - timeScale(new Date(d.startDate));
+                    return Math.max(width * (d.completion / 100), 0);
+                })
+                .attr('height', 4)
+                .attr('fill', 'white')
+                .attr('opacity', 0.6);
+
+            const timeAxis = d3.axisBottom(timeScale)
+                .ticks(d3.timeMonth.every(2))
+                .tickFormat(d3.timeFormat('%b %Y'));
+
+            mainGroup.append('g')
+                .attr('transform', `translate(0,${height + 10})`)
+                .call(timeAxis)
+                .selectAll('text')
+                .attr('fill', this.isDarkMode() ? '#E5E7EB' : '#374151')
+                .style('font-size', '12px')
+                .attr('transform', 'rotate(-45)')
+                .attr('dx', '-0.5em')
+                .attr('dy', '0.5em')
+                .style('text-anchor', 'end');
+        },
+
+        getProjectColor(category, completion) {
+            const colors = {
+                'Web\nDevelopment': '#3B82F6',
+                'AI/ML': '#10B981',
+                'Bioinformatics': '#8B5CF6',
+                'Research': '#EF4444',
+                'Data Analysis': '#F59E0B'
+            };
+            const baseColor = d3.rgb(colors[category.split('\n')[0]] || '#6B7280');
+            return baseColor.darker(1 - completion / 100);
+        },
+
+        showTooltip(event, data) {
+            const tooltip = this.$refs.tooltip;
+            if (!tooltip) return;
+
+            this.tooltipData = {
+                name: data.name,
+                description: data.description,
+                completion: data.completion,
+                dates: `${data.startDate} - ${data.endDate}`,
+                category: data.category.replace('\n', ' ')
+            };
+
+            this.updateTooltipPosition(event);
+            tooltip.classList.remove('hidden');
+        },
+
+        updateTooltipPosition(event) {
+            const tooltip = this.$refs.tooltip;
+            if (!tooltip) return;
+
+            const container = this.$el.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            
+            let left = event.clientX - container.left;
+            let top = event.clientY - container.top + 20;
+
+            if (left + tooltipRect.width > container.width) {
+                left = container.width - tooltipRect.width - 10;
+            }
+            if (left < 0) {
+                left = 10;
+            }
+            if (top + tooltipRect.height > container.height) {
+                top = event.clientY - container.top - tooltipRect.height - 10;
+            }
+
+            tooltip.style.left = `${left}px`;
+            tooltip.style.top = `${top}px`;
+        },
+
+        hideTooltip() {
+            const tooltip = this.$refs.tooltip;
+            if (tooltip) {
+                tooltip.classList.add('hidden');
+            }
+        },
+
+        isDarkMode() {
+            return document.documentElement.classList.contains('dark');
+        },
+
+        updateChartTheme() {
+            this.initChart();
+        }
+    }));
+});
