@@ -1,3 +1,17 @@
+// Add this at the start of your main.js
+// Debounce function for performance
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
 // Alpine.js Component Initializations
 document.addEventListener('alpine:init', () => {
     // Navigation Component
@@ -105,6 +119,57 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    const loadVisualizations = () => {
+        const visualizations = document.querySelectorAll('.visualization');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const viz = entry.target;
+                    if (!viz.dataset.loaded) {
+                        // Initialize visualization only when visible
+                        switch(viz.id) {
+                            case 'skills-network':
+                                Alpine.data('skillsNetwork').initNetwork();
+                                break;
+                            case 'project-timeline':
+                                Alpine.data('projectTimeline').initChart();
+                                break;
+                            case 'dna-viewer':
+                                Alpine.data('dnaViewer').initViewer();
+                                break;
+                        }
+                        viz.dataset.loaded = 'true';
+                    }
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        visualizations.forEach(viz => observer.observe(viz));
+    };
+
+    // Delay initialization on mobile
+    if (window.innerWidth < 768) {
+        setTimeout(loadVisualizations, 1000);
+    } else {
+        loadVisualizations();
+    }
+
+    // Optimize resize handlers
+const optimizedResize = debounce(() => {
+    if (window.innerWidth < 768) {
+        // Limit updates on mobile
+        return;
+    }
+    // Update visualizations
+    if (Alpine.data('skillsNetwork')) Alpine.data('skillsNetwork').handleResize();
+    if (Alpine.data('projectTimeline')) Alpine.data('projectTimeline').initChart();
+    if (Alpine.data('dnaViewer')) Alpine.data('dnaViewer').initViewer();
+}, 250);
+
+window.addEventListener('resize', optimizedResize);
 });
 
 // Scroll to top button functionality
