@@ -25,6 +25,31 @@ document.addEventListener('alpine:init', () => {
         }
     }));
 
+    // Clipboard Component
+Alpine.data('clipboard', () => ({
+    copied: false,
+    copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            this.copied = true;
+            setTimeout(() => this.copied = false, 2000);
+        });
+    }
+}));
+
+// Scroll Progress Component
+Alpine.data('scrollProgress', () => ({
+    percentage: 0,
+    init() {
+        this.updateProgress(); // Initial calculation
+        window.addEventListener('scroll', () => this.updateProgress());
+    },
+    updateProgress() {
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollTop = window.scrollY;
+        this.percentage = Math.min(100, Math.round((scrollTop / docHeight) * 100));
+    }
+}));
+
     // Page Transitions Component
     Alpine.data('pageTransitions', () => ({
         init() {
@@ -55,6 +80,8 @@ document.addEventListener('alpine:init', () => {
         }
     }));
 });
+
+
 
 // Dark mode handling - Initial check
 document.addEventListener('DOMContentLoaded', () => {
@@ -99,6 +126,24 @@ function mobileMenu() {
         toggle() {
             this.show = !this.show;
             document.body.style.overflow = this.show ? 'hidden' : '';
+        }
+    };
+}
+
+// Reading Time Estimation
+function calculateReadingTime() {
+    return {
+        readingTime: 0,
+        init() {
+            // Get all text content from main sections
+            const content = document.querySelector('main').innerText;
+            const wordsPerMinute = 250; // Average reading speed
+            const words = content.trim().split(/\s+/).length;
+            this.readingTime = Math.ceil(words / wordsPerMinute);
+            
+            // Log for debugging
+            console.log('Word count:', words);
+            console.log('Reading time:', this.readingTime);
         }
     };
 }

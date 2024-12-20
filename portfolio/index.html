@@ -84,6 +84,12 @@
 
 </head>
 <body class="bg-gray-50 dark:bg-gray-900" x-data="pageTransitions">
+    <!-- Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-[9999]" x-data="scrollProgress">
+        <div class="h-full bg-blue-600 dark:bg-blue-400 transition-all duration-150"
+            :style="{ width: `${percentage}%` }">
+        </div>
+    </div>
     <!-- Navigation -->
     <nav class="fixed w-full bg-white dark:bg-gray-800 shadow-md z-50" x-data="navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -262,6 +268,15 @@
                         <div class="text-sm text-gray-600 dark:text-gray-300">Hours of Coding</div>
                     </div>
                 </div>
+                <!-- Reading Time -->
+                <div x-data="calculateReadingTime()" 
+                class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium text-gray-800 dark:text-gray-200 mb-6">
+                <svg class="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span x-text="`${readingTime} minute read`"></span>
+                </div>
             </div>
 
             <div class="hidden lg:block">
@@ -371,19 +386,19 @@
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">Python</span>
+                        <span class="text-base sm:text-base">Python</span>
                     </div>
                     <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">Java</span>
+                        <span class="text-base sm:text-base">Java</span>
                     </div>
                     <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">JavaScript</span>
+                        <span class="text-base sm:text-base">JavaScript</span>
                     </div>
 
                     <!-- Row 2: Tools & Technologies -->
@@ -391,19 +406,19 @@
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">Jupyter Notebooks</span>
+                        <span class="text-base sm:text-base">Jupyter Notebooks</span>
                     </div>
                     <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">R Programming</span>
+                        <span class="text-base sm:text-base">R Programming</span>
                     </div>
                     <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">Web Development</span>
+                        <span class="text-base sm:text-base">Web Development</span>
                     </div>
 
                     <!-- Row 3: Biology Specialties -->
@@ -411,19 +426,19 @@
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">Genomics</span>
+                        <span class="text-base sm:text-base">Genomics</span>
                     </div>
                     <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">Epigenetics</span>
+                        <span class="text-base sm:text-base">Epigenetics</span>
                     </div>
                     <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">Phylogenetics</span>
+                        <span class="text-base sm:text-base">Phylogenetics</span>
                     </div>
 
                     <!-- Row 4: Research & Applications -->
@@ -431,19 +446,19 @@
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">Viral Research</span>
+                        <span class="text-base sm:text-base">Viral Research</span>
                     </div>
                     <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">API Integration</span>
+                        <span class="text-base sm:text-base">API Integration</span>
                     </div>
                     <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
                         <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        <span class="text-sm sm:text-base">Protein Modeling</span>
+                        <span class="text-base sm:text-base">Protein Modeling</span>
                     </div>
                 </div>
             </div>
@@ -1600,13 +1615,30 @@ class="space-y-8">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Direct Contact</h3>
                     <div class="space-y-4">
                         <!-- Email -->
-                        <a href="mailto:zalibhai@ucsd.edu" 
-                           class="flex items-center space-x-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                            <span>zalibhai@ucsd.edu</span>
-                        </a>
+                        <!-- Email with Copy Button -->
+                        <div x-data="clipboard" class="flex items-center space-x-2">
+                            <a href="mailto:zalibhai@ucsd.edu" 
+                            class="flex items-center space-x-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <span>zalibhai@ucsd.edu</span>
+                            </a>
+                            <button @click="copyToClipboard('zalibhai@ucsd.edu')"
+                                    class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                                <svg x-show="!copied" class="w-5 h-5 text-gray-600 dark:text-gray-400" 
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+                                </svg>
+                                <svg x-show="copied" class="w-5 h-5 text-green-500" 
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </button>
+                        </div>
                         <!-- Location -->
                         <div class="flex items-center space-x-3 text-gray-600 dark:text-gray-300">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
