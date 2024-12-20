@@ -137,7 +137,7 @@ function calculateReadingTime() {
         init() {
             // Get all text content from main sections
             const content = document.querySelector('main').innerText;
-            const wordsPerMinute = 250; // Average reading speed
+            const wordsPerMinute = 260; // Average reading speed
             const words = content.trim().split(/\s+/).length;
             this.readingTime = Math.ceil(words / wordsPerMinute);
             
