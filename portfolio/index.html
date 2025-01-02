@@ -56,6 +56,9 @@
     </script>
 
 <script src="../js/main.js"></script>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/style.css">
@@ -1961,16 +1964,20 @@ class="space-y-8">
                 <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Availability</h3>
                     <p class="text-gray-600 dark:text-gray-300">
-                        Currently open to research collaborations, internship opportunities, and academic discussions.
+                        Currently open to research collaborations, internship opportunities, and academic discussions. I will also occasionally do web development for clients as a hobby, so if you like the look and feel of this portfolio or any of my personal brand projects, feel free to let me know, and we can get in touch!
                     </p>
                 </div>
             </div>
 
             <!-- Contact Form -->
             <div class="bg-gray-50 dark:bg-gray-700 rounded-xl shadow-lg p-6">
+                <!-- Add this header -->
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Contact Form
+                </h3>
                 <form action="https://formspree.io/f/xzzblaeb" method="POST" 
-                    x-data="contactForm()" 
-                    @submit.prevent="submitFormspree"
+                    x-data="contactForm()"
+                    @submit.prevent="validateAndShowRecaptcha" 
                     class="space-y-6">
                     <!-- Form Status Messages -->
                     <div x-show="formStatus.show" 
@@ -1988,6 +1995,7 @@ class="space-y-8">
                                 First Name
                             </label>
                             <input type="text" id="firstName" name="First Name" x-model="form.firstName"
+                                autocomplete="given-name"
                                 :class="{'border-red-500': errors.firstName}"
                                 class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                 required>
@@ -1998,6 +2006,7 @@ class="space-y-8">
                                 Last Name
                             </label>
                             <input type="text" id="lastName" name="Last Name" x-model="form.lastName"
+                                autocomplete="family-name"
                                 :class="{'border-red-500': errors.lastName}"
                                 class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                                 required>
@@ -2011,6 +2020,7 @@ class="space-y-8">
                             Email
                         </label>
                         <input type="email" id="email" name="Email" x-model="form.email"
+                            autocomplete="email"
                             :class="{'border-red-500': errors.email}"
                             class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
                             required>
@@ -2028,6 +2038,7 @@ class="space-y-8">
                             <option value="research">Research Collaboration</option>
                             <option value="internship">Internship Opportunity</option>
                             <option value="academic">Academic Discussion</option>
+                            <option value="website">Web Development</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
@@ -2042,6 +2053,14 @@ class="space-y-8">
                                 class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white resize-none"
                                 required></textarea>
                         <p x-show="errors.message" x-text="errors.message" class="mt-1 text-sm text-red-600 dark:text-red-400"></p>
+                    </div>
+
+                    <div x-show="showRecaptcha" class="flex justify-center mb-4">
+                        <div class="g-recaptcha" 
+                             data-sitekey="6LcmjawqAAAAAPrAaYksXDHy-ImanRvwaYikCPUP" 
+                             data-callback="onRecaptchaSuccess"
+                             data-size="normal">
+                        </div>
                     </div>
 
                     <!-- Submit Button -->

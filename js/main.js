@@ -232,12 +232,15 @@ function contactForm() {
         },
         attempts: 0,
         hasSubmittedLink: false,
+        showRecaptcha: false,
+        recaptchaVerified: false,
         
         get submissionCount() {
             return parseInt(localStorage.getItem('formSubmissionCount') || '0');
         },
         
         init() {
+            window.contactFormComponent = this;
             const lastSubmitTime = localStorage.getItem('lastSubmitTime');
             if (lastSubmitTime && (Date.now() - parseInt(lastSubmitTime)) > 86400000) {
                 localStorage.setItem('formSubmissionCount', '0');
@@ -305,8 +308,14 @@ function contactForm() {
             
             return Object.keys(this.errors).length === 0;
         },
+
+        validateAndShowRecaptcha(event) {
+            if (this.validateForm()) {
+                this.showRecaptcha = true;
+            }
+        },
         
-        async submitFormspree(event) {
+        async submitFormspree(form) {
             if (!this.validateForm()) {
                 return;
             }
@@ -319,9 +328,9 @@ function contactForm() {
                     throw new Error('Maximum daily submission limit reached');
                 }
 
-                const response = await fetch(event.target.action, {
+                const response = await fetch(form.action, {
                     method: 'POST',
-                    body: new FormData(event.target),
+                    body: new FormData(form),
                     headers: {
                         'Accept': 'application/json'
                     }
@@ -337,6 +346,7 @@ function contactForm() {
                         message: 'Thank you for your message! I will get back to you soon.'
                     };
                     this.resetForm();
+                    grecaptcha.reset();
                 } else {
                     throw new Error('Failed to send message');
                 }
@@ -351,6 +361,17 @@ function contactForm() {
                 this.$el.scrollIntoView({ behavior: 'smooth' });
             }
         },
+
+        onRecaptchaSuccess() {
+            try {
+                this.recaptchaVerified = true;
+                this.showRecaptcha = false;
+                this.submitFormspree(this.$el);
+            } catch (error) {
+                console.error('Error in captcha success:', error);
+            }
+            
+        },
         
         resetForm() {
             this.form = {
@@ -361,8 +382,25 @@ function contactForm() {
                 message: ''
             };
             this.errors = {};
+            this.showRecaptcha = false;
+            this.recaptchaVerified = false;
         }
     };
+}
+
+function onRecaptchaSuccess(token) {
+    setTimeout(() => {
+        try {
+            if (!window.contactFormComponent) {
+                console.error('Contact form component not found');
+            }
+            
+            // Use the stored reference to call the method
+            window.contactFormComponent.onRecaptchaSuccess();
+        } catch (error) {
+            console.error('Error in reCAPTCHA callback:', error);
+        }
+    }, 100);
 }
 
 // We can create a simple interactive DNA sequence viewer
