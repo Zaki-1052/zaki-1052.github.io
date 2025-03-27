@@ -475,15 +475,15 @@ document.addEventListener('alpine:init', () => {
                         'Python',
                         'JavaScript',
                         'R',
+                        'TypeScript',
+                        'Rust',
                         'Java',
                         'HTML/CSS',
-                        'Node.js',
-                        'Bioinformatics Tools',
-                        'Data Analysis'
+                        'Node.js'
                     ],
                     datasets: [{
                         label: 'Current Proficiency',
-                        data: [90, 95, 75, 60, 95, 90, 80, 85],
+                        data: [90, 95, 75, 45, 40, 40, 85, 90],
                         fill: true,
                         backgroundColor: isDark ? 'rgba(96, 165, 250, 0.2)' : 'rgba(59, 130, 246, 0.2)',
                         borderColor: isDark ? 'rgb(96, 165, 250)' : 'rgb(59, 130, 246)',
@@ -526,14 +526,12 @@ document.addEventListener('alpine:init', () => {
                                 font: {
                                     size: 10
                                 },
-                                // Add these settings to fix the scale
                                 beginAtZero: true,
                                 min: 0,
                                 max: 100,
                                 stepSize: 20,
                                 showLabelBackdrop: false
                             },
-                            // Add this to make the chart start from the center
                             suggestedMin: 0,
                             suggestedMax: 100
                         }
@@ -649,97 +647,122 @@ document.addEventListener('alpine:init', () => {
                     // Core Skills
                     { id: "Bioinformatics", group: "core", size: 20 },
                     { id: "Programming", group: "core", size: 20 },
-                    { id: "Medical", group: "core", size: 20 },
+                    { id: "Web Development", group: "core", size: 20 },
+                    { id: "AI/ML", group: "core", size: 20 },
                     { id: "Research", group: "core", size: 20 },
                     
-                    // Programming Skills
+                    // Programming Languages
                     { id: "Python", group: "programming", size: 15 },
                     { id: "JavaScript", group: "programming", size: 15 },
+                    { id: "TypeScript", group: "programming", size: 12 },
                     { id: "R", group: "programming", size: 15 },
-                    { id: "Java", group: "programming", size: 12 },
+                    { id: "Java", group: "programming", size: 10 },
+                    { id: "Rust", group: "programming", size: 10 },
+                    
+                    // Technologies
+                    { id: "ReactJS", group: "tech", size: 14 },
+                    { id: "Node.js", group: "tech", size: 14 },
+                    { id: "HTML/CSS", group: "tech", size: 14 },
+                    { id: "Tailwind CSS", group: "tech", size: 12 },
+                    { id: "Alpine.js", group: "tech", size: 12 },
                     
                     // Biotech Skills
-                    { id: "DNA Sequencing", group: "biotech", size: 12 },
-                    { id: "Lab Techniques", group: "biotech", size: 12 },
-                    { id: "PCR", group: "biotech", size: 10 },
-                    { id: "Cell Culture", group: "biotech", size: 10 },
+                    { id: "DNA Analysis", group: "biotech", size: 12 },
+                    { id: "Genomics", group: "biotech", size: 12 },
+                    { id: "Epigenetics", group: "biotech", size: 12 },
+                    { id: "BioPython", group: "biotech", size: 10 },
                     
-                    // Medical Experience
-                    { id: "Patient Care", group: "medical", size: 12 },
-                    { id: "Clinical Operations", group: "medical", size: 12 },
-                    { id: "Healthcare Protocols", group: "medical", size: 10 },
+                    // Data Analysis
+                    { id: "Data Visualization", group: "data", size: 14 },
+                    { id: "Statistical Analysis", group: "data", size: 12 },
+                    { id: "ggplot2", group: "data", size: 10 },
+                    { id: "Pandas", group: "data", size: 12 },
+                    { id: "NumPy", group: "data", size: 12 },
                     
                     // Tools
                     { id: "Git", group: "tools", size: 10 },
                     { id: "VS Code", group: "tools", size: 10 },
                     { id: "Obsidian.md", group: "tools", size: 10 },
                     { id: "Jupyter", group: "tools", size: 10 },
-                    { id: "RStudio", group: "tools", size: 10 },
                     
-                    // DevOps
-                    { id: "Linux", group: "devops", size: 12 },
-                    { id: "Docker", group: "devops", size: 12 },
-                    { id: "Cloud Services", group: "devops", size: 12 }
+                    // AI/ML
+                    { id: "LLM Integration", group: "ai", size: 14 },
+                    { id: "Vector Embeddings", group: "ai", size: 12 },
+                    { id: "API Integration", group: "ai", size: 12 }
                 ],
                 links: [
                     // Core connections
                     { source: "Bioinformatics", target: "Programming", value: 8 },
                     { source: "Bioinformatics", target: "Research", value: 8 },
-                    { source: "Medical", target: "Research", value: 8 },
-                    { source: "Programming", target: "Research", value: 8 },
+                    { source: "Programming", target: "Web Development", value: 8 },
+                    { source: "Programming", target: "AI/ML", value: 8 },
+                    { source: "AI/ML", target: "Research", value: 6 },
                     
-                    // Programming connections
-                    { source: "Programming", target: "Python", value: 5 },
-                    { source: "Programming", target: "JavaScript", value: 5 },
-                    { source: "Programming", target: "R", value: 5 },
+                    // Programming Language connections
+                    { source: "Programming", target: "Python", value: 8 },
+                    { source: "Programming", target: "JavaScript", value: 8 },
+                    { source: "Programming", target: "TypeScript", value: 5 },
+                    { source: "Programming", target: "R", value: 7 },
                     { source: "Programming", target: "Java", value: 4 },
+                    { source: "Programming", target: "Rust", value: 4 },
+                    
+                    // Tech connections
+                    { source: "Web Development", target: "ReactJS", value: 7 },
+                    { source: "Web Development", target: "Node.js", value: 7 },
+                    { source: "Web Development", target: "HTML/CSS", value: 7 },
+                    { source: "Web Development", target: "Tailwind CSS", value: 6 },
+                    { source: "Web Development", target: "Alpine.js", value: 6 },
+                    { source: "JavaScript", target: "ReactJS", value: 6 },
+                    { source: "TypeScript", target: "ReactJS", value: 6 },
+                    { source: "JavaScript", target: "Node.js", value: 6 },
                     
                     // Bioinformatics connections
-                    { source: "Bioinformatics", target: "DNA Sequencing", value: 5 },
-                    { source: "Bioinformatics", target: "Lab Techniques", value: 5 },
-                    { source: "Lab Techniques", target: "PCR", value: 3 },
-                    { source: "Lab Techniques", target: "Cell Culture", value: 3 },
+                    { source: "Bioinformatics", target: "DNA Analysis", value: 7 },
+                    { source: "Bioinformatics", target: "Genomics", value: 7 },
+                    { source: "Bioinformatics", target: "Epigenetics", value: 7 },
+                    { source: "Python", target: "BioPython", value: 5 },
+                    { source: "BioPython", target: "DNA Analysis", value: 5 },
                     
-                    // Medical connections
-                    { source: "Medical", target: "Patient Care", value: 5 },
-                    { source: "Medical", target: "Clinical Operations", value: 5 },
-                    { source: "Medical", target: "Healthcare Protocols", value: 4 },
+                    // Data Analysis connections
+                    { source: "Python", target: "Data Visualization", value: 6 },
+                    { source: "R", target: "Data Visualization", value: 6 },
+                    { source: "Data Visualization", target: "Statistical Analysis", value: 5 },
+                    { source: "R", target: "ggplot2", value: 6 },
+                    { source: "R", target: "Statistical Analysis", value: 6 },
+                    { source: "Python", target: "Pandas", value: 6 },
+                    { source: "Python", target: "NumPy", value: 6 },
                     
                     // Tool connections
-                    { source: "Programming", target: "Git", value: 3 },
-                    { source: "Programming", target: "VS Code", value: 3 },
-                    { source: "Programming", target: "Obsidian.md", value: 3 },
-                    { source: "Programming", target: "Jupyter", value: 3 },
-                    { source: "Programming", target: "RStudio", value: 3 },
+                    { source: "Programming", target: "Git", value: 4 },
+                    { source: "Programming", target: "VS Code", value: 4 },
+                    { source: "Research", target: "Obsidian.md", value: 5 },
+                    { source: "Python", target: "Jupyter", value: 5 },
                     
-                    // DevOps connections
-                    { source: "Programming", target: "Linux", value: 4 },
-                    { source: "Programming", target: "Docker", value: 4 },
-                    { source: "Programming", target: "Cloud Services", value: 4 }
+                    // AI/ML connections
+                    { source: "AI/ML", target: "LLM Integration", value: 7 },
+                    { source: "AI/ML", target: "Vector Embeddings", value: 6 },
+                    { source: "AI/ML", target: "API Integration", value: 6 },
+                    { source: "Node.js", target: "API Integration", value: 5 }
                 ]
             };
 
             // Color scale for different groups
             const color = d3.scaleOrdinal()
-                .domain(["core", "programming", "biotech", "medical", "tools", "devops"])
-                .range(["#3B82F6", "#10B981", "#8B5CF6", "#EF4444", "#F59E0B", "#6366F1"]);
+                .domain(["core", "programming", "tech", "biotech", "data", "tools", "ai"])
+                .range(["#3B82F6", "#10B981", "#8B5CF6", "#6366F1", "#F59E0B", "#64748B", "#EC4899"]);
 
             // Create force simulation
-            // Adjust these values in the simulation setup
-            // Adjust the center force to be slightly left of center
             this.simulation = d3.forceSimulation(data.nodes)
-            .force("link", d3.forceLink(data.links)
-                .id(d => d.id)
-                .distance(d => 125 - d.value * 3))
-            .force("charge", d3.forceManyBody()
-                .strength(-300)
-                .distanceMax(300))
-            // Move the center point slightly left
-            .force("center", d3.forceCenter(this.width * 0.45, this.height / 2)) // Changed from width/2 to width * 0.45
-            .force("collision", d3.forceCollide().radius(d => d.size * 2.5))
-            // Adjust boundary forces to maintain the leftward shift
-            .force("x", d3.forceX(this.width * 0.45).strength(0.05)) // Also adjusted to match
-            .force("y", d3.forceY(this.height / 2).strength(0.05));
+                .force("link", d3.forceLink(data.links)
+                    .id(d => d.id)
+                    .distance(d => 125 - d.value * 3))
+                .force("charge", d3.forceManyBody()
+                    .strength(-300)
+                    .distanceMax(300))
+                .force("center", d3.forceCenter(this.width * 0.45, this.height / 2))
+                .force("collision", d3.forceCollide().radius(d => d.size * 2.5))
+                .force("x", d3.forceX(this.width * 0.45).strength(0.05))
+                .force("y", d3.forceY(this.height / 2).strength(0.05));
 
             // Create container group
             const g = this.svg.append("g");
@@ -771,12 +794,12 @@ document.addEventListener('alpine:init', () => {
 
             // Add labels to nodes
             nodes.append("text")
-            .text(d => d.id)
-            .attr("x", d => d.size + 8) // Increased offset from node
-            .attr("y", 4)
-            .attr("font-size", "13px") // Slightly larger font
-            .attr("font-weight", d => d.group === "core" ? "600" : "400") // Bold for core skills
-            .attr("fill", this.isDarkMode() ? "#e5e7eb" : "#374151");
+                .text(d => d.id)
+                .attr("x", d => d.size + 8)
+                .attr("y", 4)
+                .attr("font-size", "13px")
+                .attr("font-weight", d => d.group === "core" ? "600" : "400")
+                .attr("fill", this.isDarkMode() ? "#e5e7eb" : "#374151");
 
             // Update positions on tick
             this.simulation.on("tick", () => {
@@ -873,76 +896,94 @@ document.addEventListener('alpine:init', () => {
         initChart() {
             const projects = [
                 {
-                    id: "website1",
-                    name: "First Brand Website",
-                    startDate: "2023-01",
-                    endDate: "2023-06",
-                    completion: 100,
-                    category: "Web\nDevelopment",
-                    description: "Initial personal brand website developed in 11th grade using basic HTML/CSS."
-                },
-                {
-                    id: "website2",
-                    name: "Second Brand Website",
-                    startDate: "2023-09",
-                    endDate: "2024-03",
-                    completion: 100,
-                    category: "Web\nDevelopment",
-                    description: "Enhanced personal brand website with improved design and functionality developed in 12th grade."
-                },
-                {
-                    id: "portfolio",
-                    name: "Portfolio Website",
-                    startDate: "2024-12",
-                    endDate: "2025-02",
-                    completion: 100,
-                    category: "Web\nDevelopment",
-                    description: "Professional portfolio website built with modern technologies including Tailwind CSS and Alpine.js."
-                },
-                {
                     id: "gptportal",
                     name: "GPTPortal",
                     startDate: "2023-06",
-                    endDate: "2024-01",
+                    endDate: "2025-01",
                     completion: 90,
                     category: "AI/ML",
-                    description: "Advanced LLM interface integrating multiple AI providers with sophisticated features."
+                    description: "Advanced LLM interface integrating 10+ AI providers with multi-modal interactions, custom instructions, and RAG capabilities."
                 },
                 {
                     id: "epigenai",
                     name: "EpiGenAI Portal",
-                    startDate: "2023-08",
+                    startDate: "2023-08", 
                     endDate: "2024-01",
                     completion: 80,
                     category: "Bioinformatics",
-                    description: "Specialized portal for epigenetic data analysis using vector embeddings."
+                    description: "Specialized portal for epigenetic data analysis using vector embeddings and LLMs for DNA methylation analysis."
+                },
+                {
+                    id: "webreg",
+                    name: "WebReg Auto-Enroller",
+                    startDate: "2023-11",
+                    endDate: "2024-01",
+                    completion: 100,
+                    category: "Rust\nDevelopment",
+                    description: "Robust Rust application that monitors UCSD's WebReg system for course openings with asynchronous execution."
+                },
+                {
+                    id: "ao3exporter",
+                    name: "AO3 History Exporter",
+                    startDate: "2025-03",
+                    endDate: "2025-03",
+                    completion: 100,
+                    category: "Web\nDevelopment",
+                    description: "Cross-compatible extension to export AO3 browsing history with dynamic DOM parsing and JSON formatting."
+                },
+                {
+                    id: "ao3explorer",
+                    name: "AO3 History Explorer",
+                    startDate: "2024-03",
+                    endDate: "2024-03",
+                    completion: 100,
+                    category: "Web\nDevelopment",
+                    description: "React Web Application with TypeScript to analyze AO3 history with interactive tables and visualizations."
+                },
+                {
+                    id: "crime",
+                    name: "Crime Analysis Pipeline",
+                    startDate: "2025-02",
+                    endDate: "2025-03",
+                    completion: 100,
+                    category: "Data Analysis",
+                    description: "R-based data pipeline visualizing relationships between political leaning, incarceration, and crime rates."
+                },
+                {
+                    id: "portfolio",
+                    name: "Portfolio Website",
+                    startDate: "2023-09",
+                    endDate: "2024-03",
+                    completion: 100,
+                    category: "Web\nDevelopment",
+                    description: "Modern portfolio website built with HTML5, Tailwind CSS, and Alpine.js featuring responsive design and interactive elements."
+                },
+                {
+                    id: "genomics",
+                    name: "Genomic Analysis Tool",
+                    startDate: "2024-01",
+                    endDate: "2024-02",
+                    completion: 80,
+                    category: "Bioinformatics",
+                    description: "Python-based genomic analysis tool for processing and visualizing DNA sequence data."
+                },
+                {
+                    id: "todo",
+                    name: "React To-Do App",
+                    startDate: "2025-01",
+                    endDate: "2024-02",
+                    completion: 100,
+                    category: "Web\nDevelopment",
+                    description: "Advanced React-based To-Do application with task categorization, priorities, and voice commands."
                 },
                 {
                     id: "bild4",
-                    name: "BILD4 Research",
-                    startDate: "2024-09",
-                    endDate: "2024-12",
+                    name: "BILD4 Research Project",
+                    startDate: "2023-09",
+                    endDate: "2023-12",
                     completion: 100,
                     category: "Research",
-                    description: "Comprehensive research on epigenetic effects of alcohol consumption."
-                },
-                {
-                    id: "genomic",
-                    name: "Genomic Analysis Tool",
-                    startDate: "2024-12",
-                    endDate: "2025-01",
-                    completion: 70,
-                    category: "Bioinformatics",
-                    description: "Python-based tool for processing and visualizing DNA sequence data."
-                },
-                {
-                    id: "rviz",
-                    name: "R Visualization",
-                    startDate: "2024-12",
-                    endDate: "2025-02",
-                    completion: 60,
-                    category: "Data Analysis",
-                    description: "R-based visualization toolkit for biological research data."
+                    description: "Research exploring epigenetic effects of alcohol consumption in Asian populations focusing on DNA hypomethylation."
                 }
             ];
 
@@ -978,10 +1019,10 @@ document.addEventListener('alpine:init', () => {
             svg.call(this.zoom.transform, initialTransform);
 
             const timeScale = d3.scaleTime()
-                .domain([new Date('2023-01'), new Date('2025-03')])
+                .domain([new Date('2023-06'), new Date('2024-03')])
                 .range([0, width]);
 
-            const categories = ['Web\nDevelopment', 'AI/ML', 'Bioinformatics', 'Research', 'Data Analysis'];
+            const categories = ['Web\nDevelopment', 'AI/ML', 'Bioinformatics', 'Research', 'Data Analysis', 'Rust\nDevelopment'];
             const categoryScale = d3.scaleBand()
                 .domain(categories)
                 .range([0, height])
@@ -1081,7 +1122,7 @@ document.addEventListener('alpine:init', () => {
                 .attr('opacity', 0.6);
 
             const timeAxis = d3.axisBottom(timeScale)
-                .ticks(d3.timeMonth.every(2))
+                .ticks(d3.timeMonth.every(1))
                 .tickFormat(d3.timeFormat('%b %Y'));
 
             mainGroup.append('g')
