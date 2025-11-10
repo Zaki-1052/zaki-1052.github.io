@@ -1,0 +1,168 @@
+{
+  "github_projects": [
+    {
+      "title": "GPTPortal - Advanced LLM Interface",
+      "description": "Comprehensive Node.js platform integrating 10+ leading AI providers including OpenAI, Anthropic, Google, Meta AI, and Mistral. Features multi-modal interactions (text, voice, images), custom instructions, prompt templates, automated cost tracking, and multiple specialized modes including RAG and Jupyter environments.",
+      "link": "https://github.com/Zaki-1052/GPTPortal",
+      "tags": ["Node.js", "AI/ML", "Full Stack"],
+      "category": "AI/ML",
+      "completion": 95
+    },
+    {
+      "title": "EpiGenAI - Epigenetic Analysis Portal",
+      "description": "Specialized Node.js portal for epigenetic data analysis using vector embeddings and LLMs. Features DNA methylation analysis, pattern recognition, and natural language interpretation of genetic data.",
+      "link": "https://github.com/Zaki-1052/GPTPortal/tree/biomed",
+      "tags": ["Bioinformatics", "ML", "Node.js"],
+      "category": "Bioinformatics",
+      "completion": 90
+    },
+    {
+      "title": "Crime Analysis Data Pipeline",
+      "description": "Detailed data pipeline for visualizing the relationships between political leaning, incarceration rates, and crime rates across US states. Utilizes advanced R programming techniques and real collected data from original sources.",
+      "link": "https://github.com/Zaki-1052/Crime_Analysis",
+      "tags": ["R", "Data Analysis", "Research"],
+      "category": "Research",
+      "completion": 100
+    },
+    {
+      "title": "WebReg Auto-Enroller",
+      "description": "A robust Rust application that monitors UCSD's WebReg system for course openings and automatically enrolls in classes. Features asynchronous execution with Tokio, intelligent retry mechanisms, multi-channel notifications (email/Discord), detailed health monitoring, and configurable course tracking with TOML.",
+      "link": "https://github.com/Zaki-1052/WebReg-Auto-Enroller",
+      "tags": ["Rust", "Automation", "API Integration"],
+      "category": "Automation",
+      "completion": 85
+    },
+    {
+      "title": "AO3 History Exporter Extension",
+      "description": "Cross-compatible TaperMonkey script and Chrome/Firefox extension to export and download your AO3 history as a JSON file. Features include network fetch requests, dynamic DOM parsing, data extraction, and JSON formatting. Error handling with partial results, pausing for rate-limits, and web app integration included.",
+      "link": "https://github.com/Zaki-1052/AO3-History-Exporter",
+      "tags": ["JavaScript", "JSON Data", "DOM Parsing"],
+      "category": "Web Development",
+      "completion": 100
+    },
+    {
+      "title": "AO3 History Explorer Web App",
+      "description": "A full-featured React Web Application to explore and analyze your AO3 history with an interactive filterable table, custom statistics, and dynamic visualizations from a JSON file. Integrates with my extension using TypeScript and local data processing.",
+      "link": "https://github.com/Zaki-1052/AO3-History-Explorer",
+      "tags": ["TypeScript", "ReactJS", "Tailwind CSS"],
+      "category": "Web Development",
+      "completion": 95
+    },
+    {
+      "title": "BILD4 Final Research Project",
+      "description": "Comprehensive Obsidian vault exploring epigenetic effects of alcohol consumption in Asian populations. Research focuses on DNA hypomethylation patterns and the ALDH2*rs671 variant's role in acetaldehyde metabolism. Displays final poster.",
+      "link": "https://github.com/Zaki-1052/BILD4_Final",
+      "tags": ["Markdown", "Obsidian", "Research"],
+      "category": "Research",
+      "completion": 100
+    },
+    {
+      "title": "BILD5 Obsidian Vault",
+      "description": "Complete Obsidian vault of notes, research, and projects for BILD5: Biostatistics R programming assignments, concepts, and final project.",
+      "link": "https://github.com/Zaki-1052/BILD5_Notes",
+      "tags": ["Markdown", "Obsidian", "Research"],
+      "category": "Research",
+      "completion": 100
+    },
+    {
+      "title": "React To-Do App",
+      "description": "An advanced React-based To-Do application featuring task categorization, priority settings, due dates, and integrated voice command capabilities. Developed as a peer-programming test of Claude-3.7-Sonnet-Thinking capabilities with single-file constraints.",
+      "link": "https://github.com/Zaki-1052/Todo-App",
+      "tags": ["React", "TypeScript", "Voice Integration"],
+      "category": "Web Development",
+      "completion": 100
+    },
+    {
+      "title": "Personal Portfolio Website",
+      "description": "Modern portfolio website built with HTML5, Tailwind CSS, and Alpine.js. Features responsive design, dark mode, and interactive elements like visualizations and navigational animations to showcase projects and skills.",
+      "link": "https://github.com/Zaki-1052/zaki-1052.github.io",
+      "tags": ["HTML", "Tailwind CSS", "Alpine.js"],
+      "category": "Web Development",
+      "completion": 95
+    },
+    {
+      "title": "Data Visualization Toolkit",
+      "description": "R-based visualization toolkit for biological research data. Creates interactive plots and statistical analyses for genomic and proteomic datasets.",
+      "link": "https://github.com/Zaki-1052/bio-viz-tools",
+      "tags": ["R", "ggplot2", "Bioconductor"],
+      "category": "Bioinformatics",
+      "completion": 75
+    },
+    {
+      "title": "Personal Brand Website (Naz)",
+      "description": "Custom-designed personal brand website showcasing professional achievements and services. Features responsive design, modern aesthetics, and optimized user experience across devices.",
+      "link": "https://github.com/Zaki-1052/Naz_Website",
+      "tags": ["HTML", "CSS", "JavaScript"],
+      "category": "Web Development",
+      "completion": 100
+    },
+    {
+      "title": "Personal Brand Website (Mendel)",
+      "description": "Custom-designed personal brand website showcasing professional achievements and services. Features responsive design, modern aesthetics, and optimized user experience across devices.",
+      "link": "https://github.com/Zaki-1052/Mendel_Website",
+      "tags": ["HTML", "CSS", "JavaScript"],
+      "category": "Web Development",
+      "completion": 100
+    }
+  ],
+  "other_projects": [
+    {
+      "title": "PLACEHOLDER: UCSD Research Project",
+      "description": "Undergraduate research project focusing on genetic markers in cancer cells. Combining wet lab techniques with computational analysis to study gene expression patterns.",
+      "tags": ["Research", "Genetics", "Lab Work"],
+      "category": "Research",
+      "completion": 0,
+      "status": "planned"
+    },
+    {
+      "title": "PLACEHOLDER: Bioinformatics Course Project",
+      "description": "Advanced computational analysis of protein structures using machine learning techniques. Developed predictive models for protein-protein interactions.",
+      "tags": ["Machine Learning", "Proteins", "Analysis"],
+      "category": "Bioinformatics",
+      "completion": 0,
+      "status": "planned"
+    },
+    {
+      "title": "PLACEHOLDER: Independent Research Study",
+      "description": "Self-directed study on emerging technologies in biotechnology and their applications in medical research and treatment development.",
+      "tags": ["Biotech", "Research", "Medicine"],
+      "category": "Research",
+      "completion": 0,
+      "status": "planned"
+    }
+  ],
+  "future_projects": [
+    {
+      "title": "AI in Genomics Research",
+      "description": "Developing machine learning models for genomic data analysis and prediction of genetic variations. Extending AlphaFold with other cutting-edge models for protein structure prediction in a user-friendly manner.",
+      "tags": ["Machine Learning", "Genomics", "AI"],
+      "category": "Bioinformatics",
+      "completion": 0,
+      "status": "future"
+    },
+    {
+      "title": "Drug Discovery Platform",
+      "description": "Creating a computational platform for predicting drug-protein interactions and potential therapeutic targets. Utilizing deep learning models in the cloud and on local hardware for new drug discovery and repurposing.",
+      "tags": ["Drug Discovery", "Deep Learning", "Computational Biology"],
+      "category": "Bioinformatics",
+      "completion": 0,
+      "status": "future"
+    },
+    {
+      "title": "Automated Lab Analysis",
+      "description": "Developing automation tools for processing and analyzing laboratory data using computer vision and machine learning. Implementing algorithms to identify and quantify biological samples, automate data entry, and enhance the accuracy and efficiency of laboratory workflows.",
+      "tags": ["Computer Vision", "Automation", "Lab Work"],
+      "category": "Research",
+      "completion": 0,
+      "status": "future"
+    },
+    {
+      "title": "Real-time Genomic Analysis",
+      "description": "Developing a real-time system for processing and analyzing genomic sequencing data as it's generated. Create a pipeline that can handle high-throughput sequencing data, perform quality control, align sequences, and identify variants in real-time.",
+      "tags": ["Genomics", "Real-time Processing", "Pipeline"],
+      "category": "Bioinformatics",
+      "completion": 0,
+      "status": "future"
+    }
+  ]
+}

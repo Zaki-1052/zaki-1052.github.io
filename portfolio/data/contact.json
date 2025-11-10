@@ -1,0 +1,95 @@
+{
+  "email": "zalibhai@ucsd.edu",
+  "location": "University of California, San Diego",
+  "social_links": {
+    "github": {
+      "url": "https://github.com/Zaki-1052",
+      "username": "Zaki-1052",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+    },
+    "instagram": {
+      "url": "https://www.instagram.com/zaki_1052/",
+      "username": "@zaki_1052",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg"
+    },
+    "threads": {
+      "url": "https://www.threads.net/@zaki_1052",
+      "username": "@zaki_1052",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Threads_%28app%29_logo.svg"
+    },
+    "bluesky": {
+      "url": "https://bsky.app/profile/zaki1052.bsky.social",
+      "username": "zaki1052.bsky.social",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Bluesky_Logo.svg"
+    },
+    "linkedin": {
+      "url": "https://www.linkedin.com/in/zakir-alibhai-541454276/",
+      "username": "Zakir Alibhai",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg"
+    },
+    "discord": {
+      "url": "https://discord.gg/EK6wrPJEQg",
+      "invite": "EK6wrPJEQg",
+      "icon": "https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg"
+    }
+  },
+  "availability": {
+    "status": "Open",
+    "opportunities": [
+      "Research collaborations",
+      "Internship opportunities",
+      "Academic discussions",
+      "Web development projects"
+    ],
+    "description": "Currently open to research collaborations, internship opportunities, and academic discussions. I will also occasionally do web development for clients as a hobby, so if you like the look and feel of this portfolio or any of my personal brand projects, feel free to let me know, and we can get in touch!"
+  },
+  "contact_form": {
+    "action": "https://formspree.io/f/xzzblaeb",
+    "method": "POST",
+    "recaptcha_site_key": "6LcmjawqAAAAAPrAaYksXDHy-ImanRvwaYikCPUP",
+    "fields": [
+      {
+        "id": "firstName",
+        "name": "First Name",
+        "type": "text",
+        "required": true,
+        "autocomplete": "given-name"
+      },
+      {
+        "id": "lastName",
+        "name": "Last Name",
+        "type": "text",
+        "required": true,
+        "autocomplete": "family-name"
+      },
+      {
+        "id": "email",
+        "name": "Email",
+        "type": "email",
+        "required": true,
+        "autocomplete": "email"
+      },
+      {
+        "id": "subject",
+        "name": "Subject",
+        "type": "select",
+        "required": false,
+        "options": [
+          {"value": "", "label": "Select a subject"},
+          {"value": "research", "label": "Research Collaboration"},
+          {"value": "internship", "label": "Internship Opportunity"},
+          {"value": "academic", "label": "Academic Discussion"},
+          {"value": "website", "label": "Web Development"},
+          {"value": "other", "label": "Other"}
+        ]
+      },
+      {
+        "id": "message",
+        "name": "Message",
+        "type": "textarea",
+        "required": true,
+        "rows": 4
+      }
+    ]
+  }
+}

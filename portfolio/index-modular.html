@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="Zakir Alibhai - Bioinformatics Student & Developer Portfolio">
+    <title>Zakir Alibhai | Bioinformatics Portfolio</title>
+
+    <!-- Dark Mode Initialization (must be inline for FOUC prevention) -->
+    <script>
+        // Immediately execute dark mode check
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <!-- CDN Dependencies -->
+    <!-- Alpine.js for reactive components -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'fadeIn': 'fadeIn 0.4s ease-in'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- D3.js for interactive visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-W63XCDS6');
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/inline-styles.css">
+
+    <!-- Main JavaScript -->
+    <script src="../js/main.js"></script>
+    <script type="module" src="./js/components.js"></script>
+    <script type="module" src="./js/app.js"></script>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900" x-data="pageTransitions">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W63XCDS6"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <!-- Component Containers -->
+    <!-- Each section will be dynamically loaded by app.js -->
+
+    <div id="navigation-section"></div>
+
+    <div id="hero-section"></div>
+
+    <main>
+        <div id="about-section"></div>
+        <div id="projects-section"></div>
+        <div id="skills-section"></div>
+        <div id="education-section"></div>
+        <div id="contact-section"></div>
+        <div id="visualizations-section"></div>
+        <div id="features-section"></div>
+    </main>
+
+    <div id="footer-section"></div>
+</body>
+</html>
