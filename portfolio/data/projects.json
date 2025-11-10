@@ -1,26 +1,36 @@
 {
   "github_projects": [
     {
+      "title": "Yeast Genomic Adaptation Analysis Project",
+      "description": "Comprehensive bioinformatics analysis of yeast adaptation to environmental stresses using genomic data. Designed and implemented complex analysis pipelines for variant calling, filtering, and annotation. Performed advanced analyses including mutation spectrum, genomic context, and population structure. Conducted gene-specific analysis focusing on ergosterol pathway genes and their roles in stress adaptation. Implemented network analysis to identify key scaffold-gene relationships in adaptation pathways. Integrated genomic findings with biochemical data to create comprehensive adaptation models. Technologies: Python (BioPython), R, bash scripting, various bioinformatics tools.",
+      "link": "https://github.com/Zaki-1052/YeastMSA",
+      "tags": ["Bioinformatics", "Python", "R", "Genomics", "Research"],
+      "category": "Research",
+      "completion": 100,
+      "highlight": true,
+      "results": "Identified distinct mutation patterns and discovered hierarchical conservation patterns with corresponding regulatory impacts on sterol levels & lipid raft formation. Published in Science Advances (https://www.science.org/doi/10.1126/sciadv.adu7190)"
+    },
+    {
       "title": "GPTPortal - Advanced LLM Interface",
-      "description": "Comprehensive Node.js platform integrating 10+ leading AI providers including OpenAI, Anthropic, Google, Meta AI, and Mistral. Features multi-modal interactions (text, voice, images), custom instructions, prompt templates, automated cost tracking, and multiple specialized modes including RAG and Jupyter environments.",
+      "description": "Comprehensive Node.js platform integrating 10+ leading AI providers including OpenAI, Anthropic, Google, Meta AI, and Mistral. Features multi-modal interactions (text, voice, images), custom instructions, prompt templates, persistent conversation history, file uploads, customizable settings, and automated cost tracking. Created specialized RAG and Jupyter environments for scientific computing integration. Technologies: Node.js, REST APIs, WebSockets, full-stack development, Vector database integration.",
       "link": "https://github.com/Zaki-1052/GPTPortal",
-      "tags": ["Node.js", "AI/ML", "Full Stack"],
+      "tags": ["Node.js", "AI/ML", "Full Stack", "RAG"],
       "category": "AI/ML",
       "completion": 95
     },
     {
       "title": "EpiGenAI - Epigenetic Analysis Portal",
-      "description": "Specialized Node.js portal for epigenetic data analysis using vector embeddings and LLMs. Features DNA methylation analysis, pattern recognition, and natural language interpretation of genetic data.",
+      "description": "Specialized Node.js portal for epigenetic data analysis using vector embeddings and LLMs. Implemented DNA methylation analysis, pattern recognition, and NLP interpretation of genetic data. Created interactive visualization system for epigenetic patterns and relationships.",
       "link": "https://github.com/Zaki-1052/GPTPortal/tree/biomed",
-      "tags": ["Bioinformatics", "ML", "Node.js"],
+      "tags": ["Bioinformatics", "ML", "Node.js", "Epigenetics"],
       "category": "Bioinformatics",
       "completion": 90
     },
     {
       "title": "Crime Analysis Data Pipeline",
-      "description": "Detailed data pipeline for visualizing the relationships between political leaning, incarceration rates, and crime rates across US states. Utilizes advanced R programming techniques and real collected data from original sources.",
+      "description": "Created detailed data pipeline for visualizing relationships between political leaning, incarceration rates, and multi-typed crime distributions across US states. Integrated several federal data sources and formats. Implemented multi-dimensional, modular visualization showing complex variable relationships in R using advanced programming techniques.",
       "link": "https://github.com/Zaki-1052/Crime_Analysis",
-      "tags": ["R", "Data Analysis", "Research"],
+      "tags": ["R", "Data Analysis", "Research", "Visualization"],
       "category": "Research",
       "completion": 100
     },
@@ -42,9 +52,9 @@
     },
     {
       "title": "AO3 History Explorer Web App",
-      "description": "A full-featured React Web Application to explore and analyze your AO3 history with an interactive filterable table, custom statistics, and dynamic visualizations from a JSON file. Integrates with my extension using TypeScript and local data processing.",
+      "description": "A full-featured React Web Application to explore and analyze your AO3 history with an interactive filterable table, custom statistics, and dynamic visualizations from a JSON file. Implements advanced data processing with statistical aggregation, custom filtering, and live visualizations. Features React, TypeScript, Tailwind CSS, and sophisticated DOM manipulation for memory-safe data handling.",
       "link": "https://github.com/Zaki-1052/AO3-History-Explorer",
-      "tags": ["TypeScript", "ReactJS", "Tailwind CSS"],
+      "tags": ["TypeScript", "ReactJS", "Tailwind CSS", "Data Analysis"],
       "category": "Web Development",
       "completion": 95
     },
@@ -57,10 +67,10 @@
       "completion": 100
     },
     {
-      "title": "BILD5 Obsidian Vault",
-      "description": "Complete Obsidian vault of notes, research, and projects for BILD5: Biostatistics R programming assignments, concepts, and final project.",
+      "title": "BILD5 Biostatistics Project",
+      "description": "Complete Obsidian vault of notes, research, and projects for BILD5: Biostatistics. Final project explored relationship between shower temperature and neuro-immune response. Conducted statistical analysis of simulated fMRI data measuring neurologic immune activity in R. Implemented linear regression model showing correlation between cold exposure and immune activation.",
       "link": "https://github.com/Zaki-1052/BILD5_Notes",
-      "tags": ["Markdown", "Obsidian", "Research"],
+      "tags": ["R", "Statistics", "Research", "Biostatistics"],
       "category": "Research",
       "completion": 100
     },
@@ -79,6 +89,22 @@
       "tags": ["HTML", "Tailwind CSS", "Alpine.js"],
       "category": "Web Development",
       "completion": 95
+    },
+    {
+      "title": "Pi Calculation Server",
+      "description": "Designed and constructed 7000+ line out-of-core custom C server for calculating trillions of π digits. Implements advanced memory management, efficient algorithms, and optimized data structures for high-performance mathematical computation.",
+      "link": "",
+      "tags": ["C", "Algorithms", "Performance"],
+      "category": "Research",
+      "completion": 100
+    },
+    {
+      "title": "Mother's Day Card Generator",
+      "description": "Interactive web application developed using React, Node.js, and OpenAI APIs featuring a live carousel interface. Generates personalized greeting cards with AI-powered content and real-time preview.",
+      "link": "",
+      "tags": ["React", "Node.js", "OpenAI API"],
+      "category": "Web Development",
+      "completion": 100
     },
     {
       "title": "Data Visualization Toolkit",

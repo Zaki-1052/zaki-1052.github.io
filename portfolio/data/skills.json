@@ -4,15 +4,15 @@
       "name": "Python",
       "proficiency": "Advanced",
       "percentage": 90,
-      "frameworks": ["BioPython", "Pandas", "NumPy"],
-      "description": "Advanced Python programming for bioinformatics applications and data analysis"
+      "frameworks": ["BioPython", "Pandas", "NumPy", "Scientific Computing Libraries"],
+      "description": "Advanced Python programming for bioinformatics applications, data analysis, and scientific computing with scripting"
     },
     {
       "name": "JavaScript",
       "proficiency": "Advanced",
       "percentage": 95,
-      "frameworks": ["ES6+", "Node.js", "ReactJS", "API Integration"],
-      "description": "Modern JavaScript development for web applications and API integration"
+      "frameworks": ["ES6+", "Node.js", "ReactJS", "API Integration", "DOM Manipulation"],
+      "description": "Full-Stack JavaScript/TypeScript development including Node.js, ReactJS, and API integration"
     },
     {
       "name": "R Programming",
@@ -41,22 +41,96 @@
       "percentage": 45,
       "frameworks": ["Type Systems", "React Integration", "Interface Design"],
       "description": "Type-safe JavaScript development for robust web applications"
+    },
+    {
+      "name": "LaTeX",
+      "proficiency": "Intermediate",
+      "percentage": 70,
+      "frameworks": ["Document Typesetting", "Scientific Writing", "ModernCV"],
+      "description": "Professional document preparation and scientific writing"
     }
   ],
   "biotech_skills": [
     {
-      "name": "Lab Techniques",
+      "name": "Molecular Biology",
       "proficiency": "Intermediate",
       "percentage": 75,
-      "techniques": ["PCR", "Gel Electrophoresis", "Cell Culture"],
+      "techniques": ["PCR", "Gel Electrophoresis", "Cell Culture", "DNA Sequencing", "Agar Preparation"],
       "description": "Molecular biology laboratory techniques and protocols"
     },
     {
+      "name": "Analytical Chemistry",
+      "proficiency": "Intermediate",
+      "percentage": 70,
+      "techniques": ["Gravimetric Analysis", "Acid-Base Chemistry", "Spectrophotometry", "Titration"],
+      "description": "Analytical chemistry laboratory techniques from CHEM 7LM"
+    },
+    {
       "name": "Genomic Analysis",
+      "proficiency": "Intermediate",
+      "percentage": 75,
+      "techniques": ["Sequence Alignment", "Variant Calling", "Annotation", "Mutation Spectrum Analysis"],
+      "description": "Computational analysis of genomic data including alignment and variant detection"
+    },
+    {
+      "name": "Functional Analysis",
+      "proficiency": "Intermediate",
+      "percentage": 70,
+      "techniques": ["Impact Prediction", "Network Analysis", "Regulatory Analysis", "Biochemical Correlations"],
+      "description": "Functional impact prediction and network/regulatory analysis"
+    },
+    {
+      "name": "Advanced Bioinformatics",
       "proficiency": "Learning",
-      "percentage": 55,
-      "techniques": ["DNA Sequencing", "BLAST", "Sequence Analysis"],
-      "description": "Computational analysis of genomic data and sequences"
+      "percentage": 60,
+      "techniques": ["Epigenetics", "Phylogenetics", "Protein Modeling", "Population Structure Analysis"],
+      "description": "Specialized bioinformatics areas including epigenetics and protein modeling"
+    }
+  ],
+  "data_analysis_visualization": [
+    {
+      "name": "Statistical Analysis",
+      "proficiency": "Intermediate",
+      "percentage": 75,
+      "techniques": ["Regression Modeling", "Hypothesis Testing", "Distribution Analysis", "P-value Calculations"],
+      "description": "Statistical analysis and hypothesis testing for biological data"
+    },
+    {
+      "name": "Data Processing",
+      "proficiency": "Intermediate",
+      "percentage": 75,
+      "techniques": ["Custom Filter Pipelines", "Statistical Aggregation", "Multi-dimensional Transformation"],
+      "description": "Advanced data processing and transformation techniques"
+    },
+    {
+      "name": "Data Visualization",
+      "proficiency": "Advanced",
+      "percentage": 85,
+      "techniques": ["Interactive Plots", "Real-time Dashboards", "Heatmaps", "Network Diagrams"],
+      "description": "Creating interactive visualizations and real-time data dashboards"
+    }
+  ],
+  "web_development_skills": [
+    {
+      "name": "Frontend Development",
+      "proficiency": "Advanced",
+      "percentage": 90,
+      "techniques": ["React", "HTML5/CSS3", "Tailwind CSS", "Alpine.js", "Framer Motion"],
+      "description": "Modern frontend web development with React and related frameworks"
+    },
+    {
+      "name": "Backend Development",
+      "proficiency": "Advanced",
+      "percentage": 85,
+      "techniques": ["Node.js", "Express", "API Development", "Authentication Systems"],
+      "description": "Backend development with Node.js and API integration"
+    },
+    {
+      "name": "Full-Stack Integration",
+      "proficiency": "Advanced",
+      "percentage": 85,
+      "techniques": ["Third-party APIs", "Database Connectivity", "State Management"],
+      "description": "Integrating frontend and backend systems with external services"
     }
   ],
   "medical_experience": [
@@ -122,8 +196,20 @@
       "Scientific Literature Review",
       "Data Collection & Analysis",
       "Experimental Design",
-      "Technical Documentation"
+      "Technical Documentation",
+      "Controlled Variable Workflows",
+      "Scientific Documentation"
     ],
+    "ai_ml_skills": {
+      "description": "2+ years experience in AI systems and integration",
+      "areas": [
+        "Prompt Engineering",
+        "Systems Design",
+        "NLP Integrations",
+        "RAG (Retrieval Augmented Generation)",
+        "Vector Embeddings"
+      ]
+    },
     "operating_systems": [
       "MacOS (Primary)",
       "Ubuntu/Linux",
@@ -134,13 +220,15 @@
       "Problem Solving",
       "Team Collaboration",
       "Technical Writing",
-      "Project Management"
+      "Project Management",
+      "Data Reporting",
+      "Project Leading"
     ],
     "currently_learning": [
       "Machine Learning",
       "Advanced Bioinformatics",
       "Database Management",
-      "Cloud Computing"
+      "Cloud Computing Infrastructure"
     ]
   }
 }
