@@ -5,7 +5,7 @@
     "college": "John Muir College",
     "years": "2024 - 2028",
     "gpa": 3.8,
-    "status": "First Year Student",
+    "status": "Second Year Student",
     "description": "Pursuing a comprehensive program combining biological sciences with computational approaches, focusing on bioinformatics applications in medical research and genomics."
   },
   "coursework_by_quarter": {
@@ -18,8 +18,9 @@
     ],
     "spring_2025": [
       {"code": "BILD 1", "name": "The Cell"},
+      {"code": "BILD 3", "name": "Evolutionary Biology"},
       {"code": "CHEM 6C", "name": "General Chemistry III"},
-      {"code": "CHEM 7L", "name": "General Chemistry Lab"},
+      {"code": "CHEM 7LM", "name": "General Chemistry Lab (Analytical, Inorganic, Physical, Synthetic techniques)"},
       {"code": "VIS 10", "name": "Computing in the Arts"},
       {"code": "POLI 87", "name": "Data Literacy"}
     ],
@@ -81,8 +82,63 @@
   "clinical_experience": {
     "role": "Neurology Department Volunteer",
     "institution": "Cedars-Sinai Medical Center",
-    "duration": "1 Year",
-    "description": "Patient Care & Clinical Support"
+    "duration": "1 Year (2022)",
+    "description": "Patient Care & Clinical Support",
+    "details": [
+      "Supported medical staff in clinical environment providing patient care",
+      "Managed health and safety protocols, medical supplies inventory",
+      "Directed communications between departments and provided clerical support",
+      "Gained hands-on experience in healthcare operations and clinical procedures"
+    ]
+  },
+  "volunteer_experience": {
+    "role": "Junior Volunteer & Teaching Assistant",
+    "institution": "Ismaili Cultural Center",
+    "location": "Santa Monica, CA",
+    "duration": "2018-2020",
+    "description": "Youth education and community service",
+    "details": [
+      "Organized youth events and outreach programs for charitable organizations",
+      "Provided educational support as teaching assistant for Grade 2 students",
+      "Developed lesson plans and mentoring strategies for students' ethical development",
+      "Facilitated students' emotional, social, and ethical growth"
+    ]
+  },
+  "activities_achievements": {
+    "current_memberships": [
+      {
+        "organization": "Bioinformatics Undergraduate Club (UBIC)",
+        "institution": "UC San Diego",
+        "duration": "2024-Present",
+        "role": "Member"
+      }
+    ],
+    "competitions": [
+      {
+        "name": "UBIC Omics Odyssey",
+        "year": "2025",
+        "description": "24-hour bioinformatics coding competition analyzing real research datasets",
+        "details": [
+          "Performed extensively scaled pangenome reference & graph alignment with immuno-variant analysis",
+          "Analyzed 10x Genomics single-cell multiome PBMC dataset (RNA+ATAC paired reads) with vg toolkit",
+          "Demonstrated ability to work with cutting-edge -omics technologies under time constraints"
+        ]
+      }
+    ],
+    "science_fairs": [
+      {
+        "achievement": "Three-time winner, BHUSD",
+        "years": "2020-2023"
+      },
+      {
+        "achievement": "Finalist, Los Angeles County Science Fair",
+        "years": "2020-2023"
+      },
+      {
+        "achievement": "Finalist, MathCounts Competitions",
+        "years": "2020-2023"
+      }
+    ]
   },
   "timeline": [
     {
@@ -116,6 +172,11 @@
     "Medical Science Academy Graduate",
     "CPR & FOTS Certifications",
     "2+ Years Wet Lab Experience",
-    "Cedars-Sinai Clinical Experience"
+    "Cedars-Sinai Clinical Experience",
+    "UBIC Member (2024-Present)",
+    "UBIC Omics Odyssey Competition (2025)",
+    "Three-time BHUSD Science Fair Winner",
+    "LA County Science Fair Finalist",
+    "MathCounts Competition Finalist"
   ]
 }
