@@ -1,0 +1,146 @@
+{
+  "programming_languages": [
+    {
+      "name": "Python",
+      "proficiency": "Advanced",
+      "percentage": 90,
+      "frameworks": ["BioPython", "Pandas", "NumPy"],
+      "description": "Advanced Python programming for bioinformatics applications and data analysis"
+    },
+    {
+      "name": "JavaScript",
+      "proficiency": "Advanced",
+      "percentage": 95,
+      "frameworks": ["ES6+", "Node.js", "ReactJS", "API Integration"],
+      "description": "Modern JavaScript development for web applications and API integration"
+    },
+    {
+      "name": "R Programming",
+      "proficiency": "Intermediate",
+      "percentage": 75,
+      "frameworks": ["ggplot2", "Bioconductor", "tidyverse"],
+      "description": "Statistical programming and data visualization for biological research"
+    },
+    {
+      "name": "Java",
+      "proficiency": "Learning",
+      "percentage": 40,
+      "frameworks": ["Core Java", "OOP", "Data Structures"],
+      "description": "Object-oriented programming and data structures fundamentals"
+    },
+    {
+      "name": "Rust",
+      "proficiency": "Learning",
+      "percentage": 40,
+      "frameworks": ["Async/Tokio", "Error Handling", "Memory Safety"],
+      "description": "Systems programming with focus on performance and memory safety"
+    },
+    {
+      "name": "TypeScript",
+      "proficiency": "Learning",
+      "percentage": 45,
+      "frameworks": ["Type Systems", "React Integration", "Interface Design"],
+      "description": "Type-safe JavaScript development for robust web applications"
+    }
+  ],
+  "biotech_skills": [
+    {
+      "name": "Lab Techniques",
+      "proficiency": "Intermediate",
+      "percentage": 75,
+      "techniques": ["PCR", "Gel Electrophoresis", "Cell Culture"],
+      "description": "Molecular biology laboratory techniques and protocols"
+    },
+    {
+      "name": "Genomic Analysis",
+      "proficiency": "Learning",
+      "percentage": 55,
+      "techniques": ["DNA Sequencing", "BLAST", "Sequence Analysis"],
+      "description": "Computational analysis of genomic data and sequences"
+    }
+  ],
+  "medical_experience": [
+    {
+      "role": "Neurology Department Volunteer",
+      "institution": "Cedars-Sinai Medical Center",
+      "duration": "1 Year",
+      "skills": ["Patient Care", "Medical Procedures", "Clinical Operations"],
+      "description": "Volunteered at Cedars-Sinai Medical Center's Neurology Ward, gaining hands-on experience in patient care and medical procedures while developing a deep understanding of clinical operations and healthcare delivery."
+    },
+    {
+      "category": "Healthcare Competencies",
+      "skills": [
+        "Patient Interaction & Care",
+        "Medical Documentation",
+        "Healthcare Protocols",
+        "Clinical Environment Experience"
+      ]
+    }
+  ],
+  "devops_infrastructure": [
+    {
+      "category": "Cloud Infrastructure",
+      "status": "Active",
+      "technologies": ["Oracle Cloud", "Linux Server", "SSH Management", "Cloudflare"],
+      "capabilities": [
+        "Oracle Cloud Infrastructure Management",
+        "Linux Server Administration via CLI",
+        "Docker Container Management",
+        "Cloudflare Tunneling",
+        "DNS Management and Routing"
+      ]
+    },
+    {
+      "category": "Hosted Services",
+      "services": [
+        "Plex Media Server (Dockerized)",
+        "Port Forwarding Configuration",
+        "VPN & Tunneling (Cloudflare WARP)",
+        "Automated Deployment Scripts"
+      ]
+    }
+  ],
+  "tools_frameworks": {
+    "development": [
+      "Git & GitHub",
+      "VS Code & Obsidian.md",
+      "Command Line"
+    ],
+    "web_technologies": [
+      "HTML & CSS",
+      "JavaScript",
+      "Tailwind CSS"
+    ],
+    "data_analysis": [
+      "Jupyter Notebooks",
+      "RStudio",
+      "Data Visualization"
+    ]
+  },
+  "additional_competencies": {
+    "research_skills": [
+      "Scientific Literature Review",
+      "Data Collection & Analysis",
+      "Experimental Design",
+      "Technical Documentation"
+    ],
+    "operating_systems": [
+      "MacOS (Primary)",
+      "Ubuntu/Linux",
+      "Windows (VMs)",
+      "Command Line Proficiency"
+    ],
+    "soft_skills": [
+      "Problem Solving",
+      "Team Collaboration",
+      "Technical Writing",
+      "Project Management"
+    ],
+    "currently_learning": [
+      "Machine Learning",
+      "Advanced Bioinformatics",
+      "Database Management",
+      "Cloud Computing"
+    ]
+  }
+}

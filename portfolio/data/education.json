@@ -1,0 +1,121 @@
+{
+  "current_education": {
+    "institution": "University of California, San Diego",
+    "degree": "B.S. Biology with Specialization in Bioinformatics",
+    "college": "John Muir College",
+    "years": "2024 - 2028",
+    "gpa": 3.8,
+    "status": "First Year Student",
+    "description": "Pursuing a comprehensive program combining biological sciences with computational approaches, focusing on bioinformatics applications in medical research and genomics."
+  },
+  "coursework_by_quarter": {
+    "fall_2025": [
+      {"code": "CHEM 40A", "name": "Organic Chemistry I"},
+      {"code": "BILD 2", "name": "Multicellular Life"},
+      {"code": "PHYS 2A", "name": "Physics I"},
+      {"code": "MATH 20B", "name": "Calculus II"},
+      {"code": "HITO 87", "name": "Tourism Seminar"}
+    ],
+    "spring_2025": [
+      {"code": "BILD 1", "name": "The Cell"},
+      {"code": "CHEM 6C", "name": "General Chemistry III"},
+      {"code": "CHEM 7L", "name": "General Chemistry Lab"},
+      {"code": "VIS 10", "name": "Computing in the Arts"},
+      {"code": "POLI 87", "name": "Data Literacy"}
+    ],
+    "winter_2025": [
+      {"code": "BILD 5", "name": "Data Analysis/Design for Bio"},
+      {"code": "MCWP 50", "name": "Critical Writing II"},
+      {"code": "CHEM 6A", "name": "General Chemistry II"},
+      {"code": "PHIL 10", "name": "Introduction to Logic"},
+      {"code": "HITO 87", "name": "European Seminar"},
+      {"code": "ANTH 87", "name": "Mapping Capitalism"}
+    ],
+    "fall_2024": [
+      {"code": "MATH 10A", "name": "Calculus I"},
+      {"code": "CHEM 6A", "name": "General Chemistry I"},
+      {"code": "CSE 8A", "name": "Intro to Programming"},
+      {"code": "BILD 4", "name": "Introductory Biology Lab"},
+      {"code": "MCWP 40", "name": "Critical Writing I"},
+      {"code": "CSE 87", "name": "Bioinformatics Seminar"}
+    ]
+  },
+  "advanced_placement": {
+    "courses": [
+      "Biology",
+      "Chemistry",
+      "U.S. History",
+      "Calculus",
+      "Computer Science",
+      "Government & Politics",
+      "English Literature",
+      "English Language",
+      "Human Geography"
+    ],
+    "credits_earned": "40+ AP Credits"
+  },
+  "high_school": {
+    "gpa": 4.4,
+    "medical_science_academy": {
+      "duration": "3 Years (2020 - 2023)",
+      "description": "Advanced medical & biological sciences training",
+      "courses": [
+        "Advanced Physiology",
+        "Biotechnology",
+        "Biomedical Innovations"
+      ]
+    }
+  },
+  "certifications": [
+    {
+      "name": "Laboratory Safety Certification",
+      "issuer": "MSA & BILD 4",
+      "type": "Laboratory Safety"
+    },
+    {
+      "name": "CPR and First on the Scene",
+      "issuer": "Cedars-Sinai Certified Training",
+      "type": "Medical Emergency Response"
+    }
+  ],
+  "clinical_experience": {
+    "role": "Neurology Department Volunteer",
+    "institution": "Cedars-Sinai Medical Center",
+    "duration": "1 Year",
+    "description": "Patient Care & Clinical Support"
+  },
+  "timeline": [
+    {
+      "period": "2020 - 2023",
+      "event": "Medical Science Academy",
+      "description": "Advanced medical & biological sciences training",
+      "status": "completed",
+      "color": "green"
+    },
+    {
+      "period": "2024 - Present",
+      "event": "First Year at UCSD",
+      "description": "Declared Biology Major with Bioinformatics Specialization",
+      "status": "current",
+      "color": "blue"
+    },
+    {
+      "period": "2028",
+      "event": "Expected Graduation",
+      "description": "B.S. Biology with Specialization in Bioinformatics",
+      "status": "future",
+      "color": "gray"
+    }
+  ],
+  "academic_highlights": [
+    "40+ AP Credits Earned",
+    "Satisfied UC Entry-Level Writing Requirement",
+    "American History & Institutions Requirement Satisfied",
+    "3.8 University GPA",
+    "4.4 High School GPA",
+    "Medical Science Academy Graduate",
+    "CPR & FOTS Certifications",
+    "2+ Years Wet Lab Experience",
+    "Cedars-Sinai Clinical Experience"
+  ]
+}

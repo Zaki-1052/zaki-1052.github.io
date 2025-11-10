@@ -1,0 +1,113 @@
+<!-- Hero Section -->
+<header id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 pt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column: Text Content -->
+        <div class="space-y-8">
+            <div class="space-y-4">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white">
+                    Zakir Alibhai
+                </h1>
+
+                <!-- Dynamic typing effect -->
+                <div x-data="{
+                    texts: ['Bioinformatics Student', 'Full-Stack Developer', 'Research Enthusiast', 'Computational Biologist'],
+                    currentIndex: 0,
+                    currentText: '',
+                    isDeleting: false,
+                    typeSpeed: 100,
+                    deleteSpeed: 50,
+                    pauseSpeed: 2000
+                }"
+                x-init="(() => {
+                    function type() {
+                        const current = texts[currentIndex];
+                        if (!isDeleting) {
+                            currentText = current.substring(0, currentText.length + 1);
+                            if (currentText === current) {
+                                isDeleting = true;
+                                setTimeout(type, pauseSpeed);
+                                return;
+                            }
+                        } else {
+                            currentText = current.substring(0, currentText.length - 1);
+                            if (currentText === '') {
+                                isDeleting = false;
+                                currentIndex = (currentIndex + 1) % texts.length;
+                            }
+                        }
+                        setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
+                    }
+                    type();
+                })()">
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl text-blue-600 dark:text-blue-400 font-medium">
+                        <span x-text="currentText"></span><span class="animate-pulse">|</span>
+                    </h2>
+                </div>
+
+                <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Merging computational innovation and life sciences at <a href="https://ucsd.edu" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">UCSD</a>. Passionate about using machine learning and data analysis to solve complex biological challenges. Bioinformatics student, developer, computational biologist, and aspiring researcher.
+                </p>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap gap-4">
+                <a href="#projects" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition duration-300 transform hover:scale-105">
+                    View Projects
+                </a>
+                <a href="#contact" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition duration-300 transform hover:scale-105">
+                    Contact Me
+                </a>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 max-w-3xl -ml-6">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">9+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Projects</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">12+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Skills</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">20+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Courses</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">150+</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Hours of Coding</div>
+                </div>
+            </div>
+            <!-- Reading Time -->
+            <div x-data="calculateReadingTime()"
+            class="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium text-gray-800 dark:text-gray-200 mb-6">
+            <svg class="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span x-text="`${readingTime} minute read`"></span>
+            </div>
+        </div>
+
+        <div class="hidden lg:block">
+            <div class="relative">
+                <div class="w-full h-96 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900 dark:to-blue-800 rounded-lg shadow-xl transform rotate-3 transition-transform duration-300 hover:rotate-0">
+                    <!-- Image container with object-fit -->
+                    <div class="w-full h-full flex items-center justify-center overflow-hidden">
+                        <img
+                            src="../images/profile.jpg"
+                            alt="Owner Image"
+                            class="w-full h-full object-contain"
+                        />
+                        <!-- Alternative: use object-contain if you want to ensure the whole image is visible -->
+                            <!-- class="w-full h-full object-contain" -->
+                             <!--Use cover for main-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+</header>

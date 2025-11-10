@@ -1,0 +1,330 @@
+<!-- About Section -->
+<section id="about" class="py-20 bg-white dark:bg-gray-800 transition-all duration-500 ease-in-out opacity-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                About Me
+            </h2>
+            <div class="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12" x-data="{ expandAll: true }">
+            <!-- Left Column: Interactive Cards -->
+            <div class="lg:col-span-5 space-y-6">
+                <!-- Collapse All Button -->
+                <button @click="expandAll = !expandAll"
+                        class="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mb-4">
+                    <span class="text-sm font-medium" x-text="expandAll ? 'Collapse All' : 'Expand All'"></span>
+                    <svg class="w-5 h-5 transition-transform duration-300"
+                        :class="{ 'rotate-180': !expandAll }"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+
+                <!-- Experience Card -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105"
+                     x-data="{ isOpen: true }"
+                     x-effect="isOpen = expandAll">
+                    <div class="flex items-center justify-between cursor-pointer" @click="isOpen = !isOpen">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Academic Background</h3>
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300"
+                             :class="{ 'rotate-180': isOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div x-show="isOpen" x-transition class="mt-4 text-gray-600 dark:text-gray-300">
+                        First-year Bioinformatics student at UCSD, combining computer science with biological research.
+                        Focused on developing algorithms, tools, and analyzing data to solve various complex genetic, viral, and bio-chemical problems.
+                    </div>
+                </div>
+
+                <!-- Research Interests Card -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105"
+                     x-data="{ isOpen: true }"
+                     x-effect="isOpen = expandAll">
+                    <div class="flex items-center justify-between cursor-pointer" @click="isOpen = !isOpen">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Research Interests</h3>
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300"
+                             :class="{ 'rotate-180': isOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div x-show="isOpen" x-transition class="mt-4 text-gray-600 dark:text-gray-300">
+                        Passionate about biotechnology, medical research, and the intersection of computing with genetics.
+                        Exploring applications of machine learning in genomic analysis. Interested in developing tools for epigenetic analysis and personalized medicine for the average consumer.
+                    </div>
+                </div>
+
+                <!-- Goals Card -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105"
+                     x-data="{ isOpen: true }"
+                     x-effect="isOpen = expandAll">
+                    <div class="flex items-center justify-between cursor-pointer" @click="isOpen = !isOpen">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Future Goals</h3>
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300"
+                             :class="{ 'rotate-180': isOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div x-show="isOpen" x-transition class="mt-4 text-gray-600 dark:text-gray-300">
+                        Aspiring to contribute to breakthrough research in computational biology and develop innovative
+                        solutions for healthcare challenges through technology. Planning to leverage existing genomic tools and solutions to augment our knowledge and understanding of the human genome.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Main Content -->
+            <div class="lg:col-span-7 space-y-6">
+                <!-- Main Bio -->
+                <div class="prose dark:prose-invert max-w-none">
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                        As a Biology major specializing in Bioinformatics at UCSD, I'm exploring the cutting-edge intersection of using computational methods to perform genomic research. More relevant than ever today, my program combines the depth of understanding in epigenetics, molecular and chemical biology, and phylogenetics with the power of modern computing, preparing me to tackle next-generation challenges in personalized medicine, viral data analysis, and other genomic research.
+                    </p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                        Beyond coursework, I'm actively developing extracurricular expertise in both cellular and molecular biology techniques within the wet lab; and expanding my repertoire of programming languages and relevant technologies, with a particular focus on:
+                    </p>
+                </div>
+
+                <!-- Skills Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
+                    <!-- Row 1: Programming Languages -->
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">Python</span>
+                    </div>
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">Java</span>
+                    </div>
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">JavaScript</span>
+                    </div>
+
+                    <!-- Row 2: Tools & Technologies -->
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">Jupyter Notebooks</span>
+                    </div>
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">R Programming</span>
+                    </div>
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">Web Development</span>
+                    </div>
+
+                    <!-- Row 3: Biology Specialties -->
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">Genomics</span>
+                    </div>
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">Epigenetics</span>
+                    </div>
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">Phylogenetics</span>
+                    </div>
+
+                    <!-- Row 4: Research & Applications -->
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">Viral Research</span>
+                    </div>
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">API Integration</span>
+                    </div>
+                    <div class="flex items-center space-x-3 p-2 text-gray-600 dark:text-gray-300">
+                        <svg class="flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-base sm:text-base">Protein Modeling</span>
+                    </div>
+                </div>
+                <!-- Tech Stack Card -->
+                <div class="mt-16 max-w-7xl mx-auto">
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+                        x-data="{ isOpen: false }">
+                        <div class="flex items-center justify-between cursor-pointer" @click="isOpen = !isOpen">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">My Tech Stack</h3>
+                            <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 transition-transform duration-300"
+                                :class="{ 'rotate-180': isOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                        <div x-show="isOpen" x-transition class="mt-6 space-y-8">
+                            <!-- Operating Systems -->
+                            <div class="space-y-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Operating Systems</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Primary:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">macOS (M1 MacBook Air)</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Secondary:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Linux - Ubuntu (UTM VM)</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 mt-4">
+                                    I'll always prefer the polished ecosystem and UNIX-based developer environment of macOS, but the various Linux distros are always a nice challenge. Virtualizing Ubuntu sacrifices some performance, but lets me practice my CLI skills and test packages cross-platform.
+                                </p>
+                            </div>
+
+                            <!-- Development Environment -->
+                            <div class="space-y-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Development Environment</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Code Editor:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">VS Code, Cursor.sh, Zed</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Terminal:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">iTerm2 + Oh My Zsh</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Package Managers:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Homebrew, Flatpak</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 mt-4">
+                                    I started — and will probably end — with VS Code, but Cursor's agentic AI beats Copilot by a mile, and Zed makes some interesting design decisions too. iTerm2 (and the ZSH shell) are by far the smartest choices on a Mac and I'd hate to work without them. I'd highly recommend installing everything you can with Homebrew, and avoiding the Snap store is always a safe bet with Flatpaks.
+                                </p>
+                            </div>
+
+                            <!-- Productivity Tools -->
+                            <div class="space-y-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Productivity Tools</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Notes:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Obsidian.MD, Apple Notes</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Calendar:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Apple Calendar (ICS)</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Task Management:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">TickTick</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Password Manager:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Bitwarden</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 mt-4">
+                                    Obsidian is quite possibly the best power tool for lightweight note-taking I've ever used. The plugin ecosystem is an actual marvel, where I can run my code-snippets within a Markdown document, sync with Git, organize with data frames, and symlink concepts, lectures, and assignments. I haven't even begun to unlock its full potential, but I'm already impressed with how genuinely powerful it is.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-300 mt-4">
+                                    I'm still heavily embedded in the Apple ecosystem with no intentions of escaping, so I'll occasionally write in the native apps when I'm not on Linux. TickTick has recommendations from some of the most reputable people in the tech space, and you don't need me to tout how versatile or efficient it is, but what I personally love is converting my task lists to time-blocked ICS files and importing into Apple Calendar.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-300 mt-4">
+                                    Lastly, Bitwarden is free and open source, reliable, cross-platform software that truly "just works".
+                                </p>
+                            </div>
+
+                            <!-- Daily Apps -->
+                            <div class="space-y-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Daily Applications</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Browser:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Arc Browser, Zen Browser</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">PDF Viewer:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Apple Preview, Edge PDF</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Media:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Apple Music, IINA, Plex</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Communication:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Discord</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 mt-4">
+                                    So far, Arc is by far the best browser for actually managing a productive workspace of programming, hobbies, courses, and research. As soon as Zen Browser — the FOSS alternative built on Gecko — starts supporting some essential features and gains the polish and sophistication that makes Arc's organization just a genuine joy to use, I will happily switch away from Chromium. Until then, Arc remains unparalleled for productivity in every way, from its spaces and pinned tabs UI to my keyboard shortcuts and many nested folders.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-300 mt-4">
+                                    I may be an Apple shill, but I'll maintain that their native PDF viewer can almost match Edge, and their Music client — at least when you're deep in the ecosystem — far surpasses the alternative. Of course, I self-host most of my media on a Plex server through a VM on the cloud that I port-forward and SSH into with some janky but working automated scripts. The rest is self-explanatory.
+                                </p>
+                            </div>
+
+                            <!-- Additional Tools -->
+                            <div class="space-y-4">
+                                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Additional Tools</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">Bookmarking:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Raindrop.io</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-gray-600 dark:text-gray-300">VPN:</span>
+                                        <span class="font-medium text-gray-800 dark:text-gray-200">Cloudflare WARP</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 mt-4">
+                                    Lastly, Raindrop is an (oft-neglected) must for saving anything useful that crosses any platform you browse, and Cloudflare — especially if you own a domain and can tunnel your traffic — is probably the best (RD-compatible) VPN, even if you only want a DNS change.
+                                </p>
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-gray-600 dark:text-gray-300">Extensions:</span>
+                                    <span class="font-medium text-gray-800 dark:text-gray-200">uBlock Origin, SingleFile, TickTick, DraftBack, Raindrop.io, Unclutter, Bitwarden, Form History Control, Redirector, Obsidian Web Clipper, PrintFriendly, Unpaywall, JSON Formatter, Copyfish, Perplexity, Translate, TaperMonkey, SponsorBlock, Arc</span>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 mt-4">
+                                    Thanks for reading about my tech stack, and feel free to request other categories I can add and talk about!
+                                </p>
+                            </div>
+                            <!-- Add this right before the final </div> of the Tech Stack card -->
+                            <div class="flex justify-center mt-8">
+                                <button @click="isOpen = false"
+                                        x-show="isOpen"
+                                        x-transition:enter="transition ease-out duration-300"
+                                        x-transition:enter-start="opacity-0 transform translate-y-4"
+                                        x-transition:enter-end="opacity-100 transform translate-y-0"
+                                        class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-300">
+                                    <span class="text-sm font-medium">Collapse Section</span>
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
